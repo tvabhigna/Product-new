@@ -1,6 +1,5 @@
 @extends('Product.layout')
 @section('content')
-<html>
     <body>
     <div class="container">
         <h3>Products</h3>
@@ -50,7 +49,6 @@
 </script> -->
 </body>
 
-</html>
 
 @endsection
 @push('ajax_crud')

@@ -64,58 +64,23 @@ class ProductController extends Controller
      */
     public function store(Request $request,Product $ptoduct)
     {
-      $data = $request->except('image');
+      $data = $request->except('image','_token');
         if($request->hasfile('image')) {
           $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
         }
-        $product = Product::create($data);
-        // return response()->json(
-        //               [
-        //                 'success' => true,
-        //                 'message' => 'Data inserted successfully'
-        //               ]
-        // )
+        $product = Product::updateOrCreate(['id' => $request->id],$data);
+        // return response()->json(['success' => true]);
+        // dd('hi');
+        // $product   =   Product::updateOrCreate(
+        //   [
+        //       'id' => $request->id
+        //   ],
+        //   [
+        //       $data
+
+        //   ]);
         return redirect('/products');
 
-
-
-
-
-
-//         $data = $request->except('image');
-//         if($product = Product::create($data)){
-//           // dd($request->all());
-
-//           if($request->hasfile('image')) {
-//             // foreach($request->file('image') as $file)
-//                 // {
-//                     $image_name = time().'.'.$request->image->extension();
-//                     // $request->image->move(public_path().'/storage/images/', $image_name);  
-//                     // $fileModal = new Product();
-//                     $image = Storage::disk('public')->putFile('images', $request->file('image'));
-// dd($product);
-
-//                     $product->image = $image;
-
-//                     // $fileModal->event_id = $event->id;
-//                     $product->save();
-//                 // }
-    
-//             // $data['image'] = time().'.'.$request->image->extension();
-//             // $request->image->move(public_path('storage/images'), $data['image']);
-
-//           }
-//         }
-      
-//         $product = Product::create($data);
-//         return response()->json(
-//             [
-//               'success' => true,
-//               'message' => 'Data inserted successfully'
-//             ]
-//           );
-
-        
     }
 
     /**
@@ -158,11 +123,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $data = $request->all();
+      // dd($request->all());
+      $data = $request->except('image');
+        if($request->hasfile('image')) {
+          $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
+        }
+        // $data = $request->all();
+        dd($request->all());
         $product = Product::update($data);
+        // DB::table('products')->where('id', $id)->update($data);
 
-        // $product  = Product::find($id);
-
+//         Datatables::table('products')
+//         ->where('id', $id)
+//         ->update(['product' => $product]);
+//         // $product  = Product::find($id);
+// dd('sdj');
         return response()->json([
           'data' => $product
         ]);

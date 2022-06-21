@@ -51,7 +51,10 @@
         @yield('content')
         <script>
         var root_url = <?php echo json_encode(route('data')) ?>;
-        var store = <?php echo json_encode(route('products.store')) ?>;
+        var store = "{{route('products.store')}}";
+
+        var update = "{{route('products.update','')}}";
+
     </script>
     @stack('ajax_crud')
     </body>

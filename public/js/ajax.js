@@ -46,14 +46,16 @@ $(document).ready(function () {
     
         $("tbody").html(rows);
     }
+
     /*
      * View Data Modal :  Start
      */
+    
 $('body').on('click','#showProduct',function () {
     var view_url = $(this).data('url');
     $.ajax({
         url:view_url,
-        type: 'GET',  // students.show
+        type: 'GET',  // products.show
 
         success:function (data) {
             var view_html = '';
@@ -69,80 +71,49 @@ $('body').on('click', '.modal-close-btn-show', function() {
     $('#modal_for_view').hide();
 });
 
-    //Insert company data
+    // *
+    //   *  Insert company data
+    // *
+
     $("body").on("click","#createNewProduct",function(e){
     
         e.preventDefault;
+        $('#productdata').attr('action', store);
+
+
         $('#productCrudModal').html("Create product");
         $('#submit').val("Create product");
+        $('#formMethod').val("post");
+
         $('#modal-id').modal('show');
         $('#product_id').val('');
         $('#productdata').trigger("reset"); 
     
     });
-    
+
     // //Save data into database
-    // $('body').on('click','#submit', function (event) {
-
-    //     event.preventDefault()
-    //     // var id = $("#product_id").val();
-    //     // var name = $("#name").val();
-    //     // var price = $("#price").val();
-    //     // var category = $("#category").val();
-    //     // var image = $("#image").val();
-    //     let formData = new FormData(this);
-
-    //    console.log(image);
-    //     $.ajax({
-    //       url: store,
-    //       type: "POST",
-    //       data: formData,
-    //       dataType: 'json',
-    //       success: function (data) {
-
-    //           $('#productdata').trigger("reset");
-    //           $('#modal-id').modal('hide');
-              
-    //           Swal.fire({
-    //             position: 'top',
-    //             icon: 'success',
-    //             title: 'Success',
-    //             showConfirmButton: false,
-                
-    //           })
-    //           location.reload();p
-    //         },
-
-    //       error: function (data) {
-    //           console.log('Error......');       
-               
-    //       }
-    //   });              
-          
-      
-    // });
-        // //Save data into database
 
     $("#productdata").submit(function(event) {
-        // console.log('hi');
+        // console.log('submit');
 
         event.preventDefault();
         var id = $("#product_id").val();
 
         let form = $(this);
-        let url = form.attr('route');
+        let url = form.attr('action');
+        // let url = form.attr('route');
         let formData = new FormData(this);
+        console.log(formData);
         $.ajax({
-
-            type: 'POST',
-            url: store,
+            type: $('#formMethod').val(),
+            url: url,
             data: formData,
-            dataType: 'json',
             cache: false,
             processData: false,
             contentType: false,
-            success: function (data) {
-// console.log('hi');  
+            dataType: 'json',
+            success: function (data) {       
+                      location.reload();
                           $('#productdata').trigger("reset");
                           $('#modal-id').modal('hide');
                           
@@ -153,12 +124,10 @@ $('body').on('click', '.modal-close-btn-show', function() {
                             showConfirmButton: false,
                             
                           })
-                          location.reload();
+                        //   location.reload();
                         },
-            
                       error: function (data) {
                           console.log('Error......');       
-                           
                       }
         });
     });
@@ -168,9 +137,13 @@ $('body').on('click', '.modal-close-btn-show', function() {
     $('body').on('click', '#editProduct', function (event) {
     // console.log('hi');
         event.preventDefault();
+
         var id = $(this).data('id');
 
         $.get(store+'/'+ id+'/edit', function (data) {
+            $('#productdata').attr('action', update+ '/' + data.data.id);
+            $('#formMethod').val("put");
+
             // var array = JSON.parse(data);
             // console.log(data);
             // console.log(data.data.name);
@@ -182,9 +155,7 @@ $('body').on('click', '.modal-close-btn-show', function() {
              $('#price').val(data.data.price);
              $('#category').val(data.data.category);
              $('#image').val(data.data.image);
-             $('#productdata').trigger("update"); 
-
-
+             $('#productdata').trigger("store"); 
          })
     });
     
@@ -208,7 +179,8 @@ $('body').on('click', '.modal-close-btn-show', function() {
                     id: id
             },
             
-         });location.reload() 
+         });
+         location.reload() 
        });
     
     }); 
