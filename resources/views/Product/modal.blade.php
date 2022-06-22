@@ -14,9 +14,8 @@
 
             <!-- {{ Form::model($product, ['route'=>['products.update',$product->id],'method'=>'patch','enctype'=>'multipart/form-data']) }} -->
         <!-- @else -->
-            {{ Form::open(['route'=>'products.store','enctype'=>'multipart/form-data','method'=>'post','id'=>'productdata']) }}
+            {{ Form::open(['route'=>'products.store','enctype'=>'multipart/form-data','id'=>'productdata']) }}
         <!-- @endif -->
-        @csrf
                 <!-- <form id="productdata" enctype="multipart/formdata" action="{{route('products.store')}}"> -->
                     <input type="hidden" id="product_id" name="product_id" value="">
                     <input type="hidden" name="_method" id="formMethod">
@@ -70,7 +69,7 @@
                             <div class="col-lg-9">
                             {{ Form::file('image',Request::old('image'),array('id' => 'image','class'=>"form-control")) }}
                             <!-- <input type="file" id="image" name="image" value=""> -->
-                                @if ($errors->has('image'))
+                                @if ($errors->has('image')) 
                                     <span class="text-danger">{{ $errors->first('image') }}</span>
                                 @endif
                             </div>

@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 // product route;
-Route::resource('products',ProductController::class);
 Route::get('products-', ['as'=>'data','uses'=>'App\Http\Controllers\ProductController@getData']);
+Route::resource('products',ProductController::class);

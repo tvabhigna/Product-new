@@ -28,16 +28,17 @@ $(document).ready(function () {
         var	rows = '';
         
         $.each( data, function( key, value ) {
+            console.log(value.image);
             
               rows = rows + '<tr>';
               rows = rows + '<td>'+value.id+'</td>';
               rows = rows + '<td>'+value.name+'</td>';
               rows = rows + '<td>'+value.price+'</td>';
               rows = rows + '<td>'+value.category+'</td>';
-              rows = rows + '<td>'+value.image+'</td>';
+              rows = rows + '<td><img src='+value.image+' border="0" width="100" height="100" class="img-rounded" align="center"></td>';
 
               rows = rows + '<td data-id="'+value.id+'">';
-                    rows = rows + '<a class="btn btn-success" style="font-size: 0.8em;" id="showProduct" data-id="'+value.id+'" data-toggle="modal" data-target="#modal-id">Show</a> ';
+                    // rows = rows + '<a class="btn btn-success" style="font-size: 0.8em;" id="showProduct" data-id="'+value.id+'" data-toggle="modal" data-target="#modal-id">Show</a> ';
                     rows = rows + '<a class="btn btn-primary" style="font-size: 0.8em;" id="editProduct" data-id="'+value.id+'" data-toggle="modal" data-target="#modal-id">Edit</a> ';
                     rows = rows + '<a class="btn btn-danger" style="font-size: 0.8em;" id="deleteProduct" data-id="'+value.id+'" >Delete</a> ';
                     rows = rows + '</td>';
@@ -101,11 +102,13 @@ $('body').on('click', '.modal-close-btn-show', function() {
 
         let form = $(this);
         let url = form.attr('action');
-        // let url = form.attr('route');
         let formData = new FormData(this);
-        console.log(formData);
+        let method = $(this).attr('method');
+        if(method == 'put'){
+            formData.append('_method','PATCH')
+        }
         $.ajax({
-            type: $('#formMethod').val(),
+            type:'POST',
             url: url,
             data: formData,
             cache: false,

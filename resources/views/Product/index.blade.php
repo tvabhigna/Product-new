@@ -9,7 +9,7 @@
 
         </div>
         <div class="card">
-        <table class="table table-hover text-center data-table">
+        <table class="table table-hover text-center data-table"id="data-table">
         <thead>
         <tr>    
             <th>ID</th>
@@ -28,25 +28,36 @@
         @include('Product.modal')
     </div>
     </div>
-    <!-- <script type="text/javascript">
-  $(function () {
+  <script type="text/javascript">
+//     $.ajaxSetup({
+//     headers: {
+//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//         });
+// </script>
+// <script type="text/javascript">
+//         jQuery(function () {
+//             window.dataGridTable = jQuery('#data-table').DataTable({
+//                 processing: false,
+//                 serverSide: true,
+//                 responsive: true,          
+//         ajax: "{{ route('data') }}",
+//         columns: [
+//             // console.log('hi');
+//             {data: 'id', name: 'id'},
+//             // {data: 'image', name: 'image',"render": function (data, type, full, meta) {
+//             //     return "<img src=\"/public/imageable/",data}},            
+//             {data: 'name', name: 'name'},
+//             {data: 'price', name: 'price'},
+//             {data: 'category', name: 'category'},
+//             // {data: 'image', name: 'image'},
+//             {data: 'action', name: 'action',orderable: true, searchable: false, paging: true,},
+//         ]
+//         // alert(0);
+//     });
     
-    var table = $('.data-table').DataTable({
-        processing: false,
-        serverSide: true,
-        ajax: "{{ route('data') }}",
-        columns: [
-            {data: 'id', name: 'product_id'},
-            {data: 'name', name: 'name'},
-            {data: 'price', name: 'price'},
-            {data: 'category',name: 'category'},
-            {data: 'image',name: 'image'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
-    });
-    
-  });
-</script> -->
+//   });
+</script>
 </body>
 
 

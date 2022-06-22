@@ -21,7 +21,12 @@ class ProductController extends Controller
         if ($request->ajax()) {
             $data = Product::select('*')->orderBy('created_at','Desc');
             return Datatables::of($data)
-                    
+            ->addColumn('image', function ($data){
+              $url = Storage::disk('public')->url($data->image);
+
+              return $url;
+
+            })
                     ->make(true);
         }
         
@@ -51,7 +56,6 @@ class ProductController extends Controller
             ],
             [
               'name' => $request->name,
-              'address' => $request->address
             ]
             );
     }
@@ -123,14 +127,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-      // dd($request->all());
+      // dd($request->all(),$product);
+      $data = $request->all();
       $data = $request->except('image');
+
         if($request->hasfile('image')) {
           $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
         }
         // $data = $request->all();
-        dd($request->all());
-        $product = Product::update($data);
+        // dd($request->all());
+         $product->update( $data ) ;
+        // $product = Product::update($data);
         // DB::table('products')->where('id', $id)->update($data);
 
 //         Datatables::table('products')
