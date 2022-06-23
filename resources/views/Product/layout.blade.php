@@ -1,6 +1,9 @@
 <html>
     <head>
         <title>Products</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -22,12 +25,12 @@
 
     </head>
     <body>
-<!-- View Modal -->
-<div id="showProduct" class="modal" tabindex="-1">
+    <!-- View Modal -->
+    <div id="modal_for_view" class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content bg-teal-300 view-table-bg">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{'Product Details'}}</h5>
+                        <h5 class="modal-title">{{'Details'}}</h5>
                         <button type="button" class="close modal-close-btn-show" data-dismiss="modal"
                                 id="header_close_button_show">&times;
                         </button>
@@ -36,7 +39,10 @@
                     <div class="modal-body">
                         <table class="table table_for_view">
                             <tbody id="modal-table-data">
+                            @foreach ($data as $images)
 
+                            <img src="{{ URL::asset('storage/images'.$images->image) }}" border="0" width="100" height="100" class="img-rounded" align="center" />
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -47,15 +53,34 @@
                 </div>
             </div>
         </div>
-<!-- /view modal  -->
+    <!-- /view modal  -->
+        <!-- delete modal -->
+    <div id="modal_delete_warning" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h6 class="modal-title">Warning!!</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h6 class="font-weight-semibold">Are you sure you want to delete this record ?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link modal-close-btn-delete" data-dismiss="modal">Close</button>
+                <button type="button" class="btn bg-warning modal-delete-confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /delete modal --> 
         @yield('content')
         <script>
         var root_url = <?php echo json_encode(route('data')) ?>;
         var store = "{{route('products.store')}}";
-
         var update = "{{route('products.update','')}}";
 
     </script>
+
     @stack('ajax_crud')
     </body>
 </html>

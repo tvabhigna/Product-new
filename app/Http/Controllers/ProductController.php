@@ -3,34 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Yajra\Datatables\Datatables;
+use App\Foo\Bar;
 use Storage;
 
 class ProductController extends Controller
 {
-    // get data function
     public function getData(Request $request)
     {
-    //     $products = Product::latest()->paginate(5);
+            return Datatables::of(Product::select('id','name','price','category','image'))
+                ->addColumn('image', function ($data){
+            $url = asset('storage/'.$data->image);
 
-    //   return Request::ajax() ? 
-    //                response()->json($produsct,Response::HTTP_OK) 
-    //                : abort(404);
-
-        if ($request->ajax()) {
-            $data = Product::select('*')->orderBy('created_at','Desc');
-            return Datatables::of($data)
-            ->addColumn('image', function ($data){
-              $url = Storage::disk('public')->url($data->image);
-
-              return $url;
-
+                return '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded" align="center" />';
             })
-                    ->make(true);
-        }
-        
-        return view('products');
+            ->addColumn( 'action', function ( $data ){
+            return
+                '<a href="javascript:;" data-url="' . url( 'products/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
+                '<a class="btn btn-outline-primary ml-1"  id="editProduct" data-id="'.$data->id.'" data-toggle="modal" data-target="#modal-id">Edit</a> '.
+                '<a href="javascript:;" data-url="' .route('products.destroy', $data->id) . '" data-id="'.$data->id.'" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+
+              })
+            ->rawColumns(['action','image'])
+            ->make(true);
     }
     
     /**
@@ -44,47 +41,19 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        Product::updateOrCreate(
-            [
-              'id' => $request->id
-            ],
-            [
-              'name' => $request->name,
-            ]
-            );
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Product $ptoduct)
+    public function store(ProductRequest $request,Product $ptoduct)
     {
-      $data = $request->except('image','_token');
+      $data = $request->all();
         if($request->hasfile('image')) {
           $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
         }
-        $product = Product::updateOrCreate(['id' => $request->id],$data);
-        // return response()->json(['success' => true]);
-        // dd('hi');
-        // $product   =   Product::updateOrCreate(
-        //   [
-        //       'id' => $request->id
-        //   ],
-        //   [
-        //       $data
-
-        //   ]);
-        return redirect('/products');
-
+        $product = Product::create($data);
+        return response()->json();
     }
 
     /**
@@ -95,12 +64,12 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-      $data  = [
+        $data  = [
         'id'      =>  $product->id,
         'name'    =>  $product->name,
         'price'   =>  $product->price,
         'category'=>  $product->category,
-        'image'   =>  $product->image,
+        // 'image'   =>  $product->image,
         ];
         return $data;
     }
@@ -125,26 +94,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-      // dd($request->all(),$product);
       $data = $request->all();
       $data = $request->except('image');
 
-        if($request->hasfile('image')) {
-          $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
-        }
-        // $data = $request->all();
-        // dd($request->all());
-         $product->update( $data ) ;
-        // $product = Product::update($data);
-        // DB::table('products')->where('id', $id)->update($data);
-
-//         Datatables::table('products')
-//         ->where('id', $id)
-//         ->update(['product' => $product]);
-//         // $product  = Product::find($id);
-// dd('sdj');
+      if($request->hasfile('image')) {
+        $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
+      }
+      $product->update( $data ) ;
         return response()->json([
           'data' => $product
         ]);
@@ -159,9 +117,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
-        return response()->json([
-          'message' => 'Data deleted successfully!'
-        ]);
+        return 1;
     }
 }
