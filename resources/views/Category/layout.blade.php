@@ -128,9 +128,9 @@
 <!-- /delete modal --> 
         @yield('content')
         <script>
-        var root_url = <?php echo json_encode(route('data')) ?>;
-        var store = "{{route('products.store')}}";
-        var update = "{{route('products.update','')}}";
+        var root_url = <?php echo json_encode(route('category')) ?>;
+        var store = "{{route('categories.store')}}";
+        var update = "{{route('categories.update','')}}";
 
     </script>
 

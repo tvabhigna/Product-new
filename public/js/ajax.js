@@ -34,7 +34,6 @@
             dataType: 'json',
             success: function (data) {   
                 $('#modal-id').modal('hide');
-                          
                 Swal.fire({
                 position: 'top',
                 icon: 'success',

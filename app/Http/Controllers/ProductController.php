@@ -11,9 +11,14 @@ use Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function getData(Request $request)
     {
-            return Datatables::of(Product::select('id','name','price','category','image'))
+           return Datatables::of(Product::select('id','name','price','category','image'))
                 ->addColumn('image', function ($data){
             $url = asset('storage/'.$data->image);
 
@@ -24,7 +29,6 @@ class ProductController extends Controller
                 '<a href="javascript:;" data-url="' . url( 'products/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
                 '<a class="btn btn-outline-primary ml-1"  id="editProduct" data-id="'.$data->id.'" data-toggle="modal" data-target="#modal-id">Edit</a> '.
                 '<a href="javascript:;" data-url="' .route('products.destroy', $data->id) . '" data-id="'.$data->id.'" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
-
               })
             ->rawColumns(['action','image'])
             ->make(true);
@@ -46,9 +50,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request,Product $ptoduct)
+    public function store(ProductRequest $request)
     {
-      $data = $request->all();
+        $data = $request->all();
         if($request->hasfile('image')) {
           $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
         }
@@ -59,7 +63,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -77,7 +81,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
@@ -91,13 +95,12 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request,Product $product)
     {
       $data = $request->all();
-      $data = $request->except('image');
 
       if($request->hasfile('image')) {
         $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
@@ -111,7 +114,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
