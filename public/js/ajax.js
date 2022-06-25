@@ -1,8 +1,8 @@
-//   *  Insert company data
+//   *  Insert Product data
 
 $("body").on("click", "#createNewProduct", function (e) {
     e.preventDefault;
-    $("#productdata").attr("action", store);
+    $("#productdata").attr("action", store_product);
     $("#productCrudModal").html("Create product");
     $("#submit").val("Create product");
     $("#formMethod").val("post");
@@ -74,8 +74,8 @@ $("body").on("click", "#editProduct", function (event) {
     event.preventDefault();
     $("#productdata").trigger("reset");
     var id = $(this).data("id");
-    $.get(store + "/" + id + "/edit", function (data) {
-        $("#productdata").attr("action", update + "/" + data.data.id);
+    $.get(store_product + "/" + id + "/edit", function (data) {
+        $("#productdata").attr("action", update_product + "/" + data.data.id);
         $("#formMethod").val("put");
         $("#productCrudModal").html("Edit product");
         $("#submit").val("Edit product");

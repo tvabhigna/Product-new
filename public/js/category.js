@@ -2,7 +2,7 @@
 
 $("body").on("click", "#createNewCategory", function (e) {
     e.preventDefault;
-    $("#categoryForm").attr("action", store);
+    $("#categoryForm").attr("action", store_category);
     $("#categoryTitleID").html("Add Category");
     $("#submit").val("Add");
     $("#categoryFormMethod").val("post");
@@ -66,7 +66,7 @@ $("body").on("click", ".modal-popup-view", function () {
             $.each(data, function (k, v) {
                 view_html += "<tr><td>" + k + "</td><th>" + v + "</th></tr>";
             });
-            $("#modal-table-data").html(view_html);
+            $("#modal-table-data_category").html(view_html);
             $("#categoryView").show();
         },
     });
@@ -80,8 +80,8 @@ $("body").on("click", "#editCategory", function (event) {
     event.preventDefault();
     $("#categoryForm").trigger("reset");
     var id = $(this).data("id");
-    $.get(store + "/" + id + "/edit", function (data) {
-        $("#categoryForm").attr("action", update + "/" + data.data.id);
+    $.get(store_category + "/" + id + "/edit", function (data) {
+        $("#categoryForm").attr("action", update_category + "/" + data.data.id);
         $("#categoryFormMethod").val("patch");
         $("#categoryTitleID").html("Edit category");
         $("#submit").val("Edit category");

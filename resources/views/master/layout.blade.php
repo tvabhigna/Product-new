@@ -1,7 +1,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Laravel</title>
+    <title>        
+        @yield('title')
+    </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -82,8 +84,33 @@
             </div>
         </nav>
 
-        <!-- View Modal -->
+        <!-- View Modal Category-->
         <div id="categoryView" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content bg-teal-300 view-table-bg">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{'Details'}}</h5>
+                        <button type="button" class="close modal-close-btn-show" data-dismiss="modal" id="header_close_button_show">&times;
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table table_for_view">
+                            <tbody id="modal-table-data_category">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-black modal-close-btn-show" data-dismiss="modal">{{'Close'}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /view modal  -->
+         <!-- View Modal Product-->
+         <div id="modal_for_view" class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content bg-teal-300 view-table-bg">
                     <div class="modal-header">
@@ -128,12 +155,17 @@
         <!-- /delete modal -->
         @yield('content')
         <script>
-            var root_url = <?php echo json_encode(route('category')) ?>;
-            var store = "{{route('categories.store')}}";
-            var update = "{{route('categories.update','')}}";
+            var root_url_category = <?php echo json_encode(route('category')) ?>;
+            var store_category = "{{route('categories.store')}}";
+            var update_category = "{{route('categories.update','')}}";
+
+            var root_url_product = <?php echo json_encode(route('data')) ?>;
+            var store_product = "{{route('products.store')}}";
+            var update_product = "{{route('products.update','')}}";
         </script>
 
         @stack('ajax_crud')
+        @yield('script')
 </body>
 
 </html>

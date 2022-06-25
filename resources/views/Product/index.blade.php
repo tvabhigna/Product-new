@@ -1,4 +1,7 @@
-@extends('Product.layout')
+@extends('master.layout')
+@section('title')
+    Product
+@endsection
 @section('content')
 
 <body>
