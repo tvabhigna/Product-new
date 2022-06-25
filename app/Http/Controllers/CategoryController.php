@@ -20,7 +20,7 @@ class CategoryController extends Controller
             ->addColumn( 'action', function ( $data ){
             return
                 '<a href="javascript:;" data-url="' . url( 'categories/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
-                '<a class="btn btn-outline-primary ml-1"  id="editProduct" data-id="'.$data->id.'" data-toggle="modal" data-target="#categoryModal">Edit</a> '.
+                '<a class="btn btn-outline-primary ml-1"  id="editCategory" data-id="'.$data->id.'" data-toggle="modal" data-target="#categoryModal">Edit</a> '.
                 '<a href="javascript:;" data-url="' .route('categories.destroy', $data->id) . '" data-id="'.$data->id.'" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
               })
             ->rawColumns(['action'])
@@ -53,7 +53,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Category $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
@@ -68,34 +68,41 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return response()->json([
+            'data' => $category
+          ]); 
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->all();
+        $category->update( $data ) ;
+        return response()->json([
+          'data' => $category
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json();
     }
 }

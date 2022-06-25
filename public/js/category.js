@@ -20,14 +20,16 @@
         let form = $(this);
         let url = form.attr('action');
         let formData = new FormData(this);
-        let method = $(this).attr('method');
-
+        let method = $(this).attr('formMethod');
+        console.log(method);
         if(method == 'put'){
             formData.append('_method','PATCH')
         }
-        // console.log('hi');
         $.ajax({
-            type:'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
             url: url,
             data: formData,
             cache: false,
@@ -66,10 +68,56 @@ $('body').on('click', '.modal-popup-view', function () {
                 view_html += '<tr><td>' + k + '</td><th>' + v + '</th></tr>';
             });
             $('#modal-table-data').html(view_html);
-            $('#modal_for_view').show();
+            $('#categoryView').show();
         }
     })
 });
 $('body').on('click', '.modal-close-btn-show', function () {
-    $('#modal_for_view').hide();
+    $('#categoryView').hide();
+});
+
+//Edit modal window
+$('body').on('click', '#editCategory', function (event) {
+    event.preventDefault();
+    $('#categoryForm').trigger("reset");
+    var id = $(this).data('id');
+    $.get(store + '/' + id + '/edit', function (data) {
+
+        $('#categoryForm').attr('action', update + '/' + data.data.id);
+        $('#categoryFormMethod').val("patch");
+        $('#categoryTitleID').html("Edit category");
+        $('#submit').val("Edit category");
+        $('#categoryModal').modal('show');
+        $('#category_id').val(data.data.id);
+        $('#name').val(data.data.name);
+    })
+});
+
+// / Delect Record popup-> 
+$('body').on('click', '.modal-popup-delete', function (e) {
+    var del_url = $(this).data('url');
+    $('.modal-delete-confirm').attr('data-url', del_url);
+    $('#modal_delete_warning').show();
+});
+$('body').on('click', '.modal-close-btn-delete', function () {
+    $('#modal_delete_warning').hide();
+});
+
+//  delete record from database 
+$('body').on('click', '.modal-delete-confirm', function () {
+    var id = $(this).attr('data-url');
+    console.log(id);
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: id,
+        type: 'DELETE',  // category.destroy
+        dataType: 'json',
+        success: function (result) {
+            $('#modal_delete_warning').modal("hide");
+            location.reload();
+        }
+    });
 });
