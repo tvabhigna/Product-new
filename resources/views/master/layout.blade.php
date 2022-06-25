@@ -1,6 +1,8 @@
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+
     <title>
         @yield('title')
     </title>
@@ -29,111 +31,9 @@
 </head>
 
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    Techvoot
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ 'Login' }}</a>
-                        </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{'Register'}}</a>
-                        </li>
-                        @endif
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                {{'Logout'}}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                        @endguest
-
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-
-        <!-- View Modal Category-->
-        <div id="categoryView" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content bg-teal-300 view-table-bg">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{'Details'}}</h5>
-                        <button type="button" class="close modal-close-btn-show" data-dismiss="modal" id="header_close_button_show">&times;
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <table class="table table_for_view">
-                            <tbody id="modal-table-data_category">
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-black modal-close-btn-show" data-dismiss="modal">{{'Close'}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /view modal  -->
-        <!-- View Modal Product-->
-        <div id="modal_for_view" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content bg-teal-300 view-table-bg">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{'Details'}}</h5>
-                        <button type="button" class="close modal-close-btn-show" data-dismiss="modal" id="header_close_button_show">&times;
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <table class="table table_for_view">
-                            <tbody id="modal-table-data">
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-black modal-close-btn-show" data-dismiss="modal">{{'Close'}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /view modal  -->
+    
+@extends('master.navbar')
+               
         <!-- delete modal -->
         <div id="modal_delete_warning" class="modal" tabindex="-1">
             <div class="modal-dialog">
@@ -154,17 +54,7 @@
         </div>
         <!-- /delete modal -->
         @yield('content')
-        <script>
-            var root_url_category = <?php echo json_encode(route('category')) ?>;
-            var store_category = "{{route('categories.store')}}";
-            var update_category = "{{route('categories.update','')}}";
-
-            var root_url_product = <?php echo json_encode(route('data')) ?>;
-            var store_product = "{{route('products.store')}}";
-            var update_product = "{{route('products.update','')}}";
-        </script>
-
-        <!-- @stack('ajax_crud') -->
+        
         @yield('script')
 </body>
 
