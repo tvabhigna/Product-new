@@ -1,6 +1,6 @@
 @extends('master.layout')
 @section('title')
-    Product
+Product
 @endsection
 @section('content')
 
@@ -30,6 +30,7 @@
         </div>
     </div>
 </body>
+@section('script')
 
 <script type="text/javascript">
     $.ajaxSetup({
@@ -84,5 +85,5 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="/js/ajax.js"></script>
-
+@endsection
 @endsection

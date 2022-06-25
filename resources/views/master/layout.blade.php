@@ -1,7 +1,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>        
+    <title>
         @yield('title')
     </title>
     <meta charset="utf-8">
@@ -109,8 +109,8 @@
             </div>
         </div>
         <!-- /view modal  -->
-         <!-- View Modal Product-->
-         <div id="modal_for_view" class="modal" tabindex="-1">
+        <!-- View Modal Product-->
+        <div id="modal_for_view" class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content bg-teal-300 view-table-bg">
                     <div class="modal-header">
@@ -164,7 +164,7 @@
             var update_product = "{{route('products.update','')}}";
         </script>
 
-        @stack('ajax_crud')
+        <!-- @stack('ajax_crud') -->
         @yield('script')
 </body>
 

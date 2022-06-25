@@ -1,7 +1,7 @@
 @extends('master.layout')
 @section('title')
-    Category
-    @endsection
+Category
+@endsection
 @section('content')
 
 <body>
