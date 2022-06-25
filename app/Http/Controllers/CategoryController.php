@@ -13,20 +13,20 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function getData(Request $request)
     {
-           return Datatables::of(Category::select('id','name'))
-            ->addColumn( 'action', function ( $data ){
-            return
-                '<a href="javascript:;" data-url="' . url( 'categories/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
-                '<a class="btn btn-outline-primary ml-1"  id="editCategory" data-id="'.$data->id.'" data-toggle="modal" data-target="#categoryModal">Edit</a> '.
-                '<a href="javascript:;" data-url="' .route('categories.destroy', $data->id) . '" data-id="'.$data->id.'" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
-              })
+        return Datatables::of(Category::select('id', 'name'))
+            ->addColumn('action', function ($data) {
+                return
+                    '<a href="javascript:;" data-url="' . url('categories/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
+                    '<a class="btn btn-outline-primary ml-1"  id="editCategory" data-id="' . $data->id . '" data-toggle="modal" data-target="#categoryModal">Edit</a> ' .
+                    '<a href="javascript:;" data-url="' . route('categories.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+            })
             ->rawColumns(['action'])
             ->make(true);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -75,7 +75,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'data' => $category
-          ]); 
+        ]);
     }
 
     /**
@@ -88,9 +88,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $data = $request->all();
-        $category->update( $data ) ;
+        $category->update($data);
         return response()->json([
-          'data' => $category
+            'data' => $category
         ]);
     }
 
