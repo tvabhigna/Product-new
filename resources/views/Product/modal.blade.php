@@ -15,7 +15,6 @@
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
             @endif
             @csrf
-                <!-- <form id="productdata" enctype="multipart/formdata" action="{{route('products.store')}}"> -->
                     <input type="hidden" id="product_id" name="product_id" value="">
                     <input type="hidden" name="_method" id="formMethod">
 

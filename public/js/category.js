@@ -21,11 +21,11 @@
         let url = form.attr('action');
         let formData = new FormData(this);
         let method = $(this).attr('method');
-        console.log(formData);
 
         if(method == 'put'){
             formData.append('_method','PATCH')
         }
+        // console.log('hi');
         $.ajax({
             type:'POST',
             url: url,
@@ -51,3 +51,25 @@
                 }
         });
     });
+
+// show modal window 
+
+$('body').on('click', '.modal-popup-view', function () {
+    var view_url = $(this).data('url');
+    $.ajax({
+        url: view_url,
+        type: 'GET',  // category.show
+
+        success: function (data) {
+            var view_html = '';
+            $.each(data, function (k, v) {
+                view_html += '<tr><td>' + k + '</td><th>' + v + '</th></tr>';
+            });
+            $('#modal-table-data').html(view_html);
+            $('#modal_for_view').show();
+        }
+    })
+});
+$('body').on('click', '.modal-close-btn-show', function () {
+    $('#modal_for_view').hide();
+});

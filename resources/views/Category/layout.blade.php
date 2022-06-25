@@ -82,7 +82,7 @@
 </nav>
 
     <!-- View Modal -->
-    <div id="modal_for_view" class="modal" tabindex="-1">
+    <div id="categoryView" class="modal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content bg-teal-300 view-table-bg">
                     <div class="modal-header">

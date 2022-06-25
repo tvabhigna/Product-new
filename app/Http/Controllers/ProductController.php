@@ -73,7 +73,6 @@ class ProductController extends Controller
         'name'    =>  $product->name,
         'price'   =>  $product->price,
         'category'=>  $product->category,
-        // 'image'   =>  $product->image,
         ];
         return $data;
     }

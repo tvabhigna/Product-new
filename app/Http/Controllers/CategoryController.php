@@ -38,18 +38,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data = $request->all();
-        $product = Category::create($data);
-        return response()->json();
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -57,7 +45,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $category = Category::create($data);
+        return response()->json();
     }
 
     /**
@@ -66,9 +56,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        $data = [
+            'id'    => $category->id,
+            'name'  => $category->name
+        ];
+        return $data;
     }
 
     /**
