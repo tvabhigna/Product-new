@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // category route 
 Route::resource('categories', CategoryController::class);
 Route::get('category', ['as' => 'category', 'uses' => 'App\Http\Controllers\CategoryController@getData']);
+
+Route::group(['middleware' => ['admin']], function () {
+
+// User route 
+Route::resource('users',UserController::class);
+Route::get('user', ['as' => 'user', 'uses' => 'App\Http\Controllers\UserController@getData']);
+});

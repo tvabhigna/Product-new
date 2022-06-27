@@ -35,6 +35,9 @@
                     <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                         {{'Logout'}}
