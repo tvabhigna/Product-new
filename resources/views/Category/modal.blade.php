@@ -1,9 +1,9 @@
 <div class="modal fade" id="categoryModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header shadow">
                 <h4 class="modal-title" id="categoryTitleID"></h4>
-                <a href="{{ url('/categories') }}" class="btn btn-primary">Cancel</a>
+                <a href="{{ url('/categories') }}" class="btn btn-primary shadow">Cancel</a>
 
             </div>
 

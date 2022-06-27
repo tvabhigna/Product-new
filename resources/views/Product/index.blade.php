@@ -4,55 +4,55 @@ Product
 @endsection
 @section('content')
 
-    <div>
-        <h3 align="center" class="card-header center">Products</h3>
-        <div class="card-body">
-            <a href="javascript:void(0)" class="btn btn-sm btn-primary" id="createNewProduct">Add Product</a>
-        </div>
-        <div class="card">
-            <table class="table table-hover text-center" ID="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Photo</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+<div class="card-body">
+    <div class="card">
+        <h3 class="card-header shadow text-muted text-center">Products
+        <a href="javascript:void(0)" class="btn btn-sm btn-primary shadow" id="createNewProduct">Add Product</a>
+    </h3>
+    <div class="card-body shadow">
+        <table class="table table-hover text-center shadow" ID="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                </tbody>
-            </table>
-            @include('Product.modal')
-        </div>
+            </tbody>
+        </table>
+        @include('Product.modal')
     </div>
+</div>
 <!-- View Modal Product-->
 <div id="modal_for_view" class="modal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content bg-teal-300 view-table-bg">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{'Details'}}</h5>
-                        <button type="button" class="close modal-close-btn-show" data-dismiss="modal" id="header_close_button_show">&times;
-                        </button>
-                    </div>
+    <div class="modal-dialog shadow">
+        <div class="modal-content bg-teal-300 view-table-bg ">
+            <div class="modal-header shadow">
+                <h5 class="modal-title">{{'Details'}}</h5>
+                <button type="button" class="close modal-close-btn-show" data-dismiss="modal" id="header_close_button_show">&times;
+                </button>
+            </div>
 
-                    <div class="modal-body">
-                        <table class="table table_for_view">
-                            <tbody id="modal-table-data">
+            <div class="modal-body">
+                <table class="table table_for_view shadow">
+                    <tbody id="modal-table-data">
 
-                            </tbody>
-                        </table>
-                    </div>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-black modal-close-btn-show" data-dismiss="modal">{{'Close'}}</button>
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-black modal-close-btn-show shadow" data-dismiss="modal">{{'Close'}}</button>
             </div>
         </div>
-        <!-- /view modal  -->
+    </div>
+</div>
+<!-- /view modal  -->
 @section('script')
 
 <script type="text/javascript">
@@ -104,9 +104,8 @@ Product
     var root_url_product = <?php echo json_encode(route('data')) ?>;
     var store_product = "{{route('products.store')}}";
     var update_product = "{{route('products.update','')}}";
-
 </script>
 <script src="/js/ajax.js"></script>
- 
+
 @endsection
 @endsection

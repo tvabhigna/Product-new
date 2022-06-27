@@ -2,9 +2,9 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <div class="modal-header">
+            <div class="modal-header shadow">
                 <h4 class="modal-title" id="productCrudModal"></h4>
-                <a href="{{ url('/products') }}" class="btn btn-primary">Cancel</a>
+                <a href="{{ url('/products') }}" class="btn btn-primary shadow">Cancel</a>
 
             </div>
 

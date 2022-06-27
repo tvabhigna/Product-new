@@ -22,13 +22,13 @@ class ProductController extends Controller
       ->addColumn('image', function ($data) {
         $url = asset('storage/' . $data->image);
 
-        return '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded" align="center" />';
+        return '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
       })
       ->addColumn('action', function ($data) {
         return
-          '<a href="javascript:;" data-url="' . url('products/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
-          '<a class="btn btn-outline-primary ml-1"  id="editProduct" data-id="' . $data->id . '" data-toggle="modal" data-target="#modal-id">Edit</a> ' .
-          '<a href="javascript:;" data-url="' . route('products.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+          '<a href="javascript:;" data-url="' . url('products/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple shadow">Show</i></a>' .
+          '<a class="btn btn-outline-primary ml-1 shadow"  id="editProduct" data-id="' . $data->id . '" data-toggle="modal" data-target="#modal-id">Edit</a> ' .
+          '<a href="javascript:;" data-url="' . route('products.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple shadow"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
       })
       ->rawColumns(['action', 'image'])
       ->make(true);

@@ -19,9 +19,9 @@ class CategoryController extends Controller
         return Datatables::of(Category::select('id', 'name'))
             ->addColumn('action', function ($data) {
                 return
-                    '<a href="javascript:;" data-url="' . url('categories/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
-                    '<a class="btn btn-outline-primary ml-1"  id="editCategory" data-id="' . $data->id . '" data-toggle="modal" data-target="#categoryModal">Edit</a> ' .
-                    '<a href="javascript:;" data-url="' . route('categories.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+                    '<a href="javascript:;" data-url="' . url('categories/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple shadow">Show</i></a>' .
+                    '<a class="btn btn-outline-primary ml-1 shadow"  id="editCategory" data-id="' . $data->id . '" data-toggle="modal" data-target="#categoryModal">Edit</a> ' .
+                    '<a href="javascript:;" data-url="' . route('categories.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple shadow"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
