@@ -23,7 +23,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // product route;
-Route::get('products-', ['as' => 'data', 'uses' => 'App\Http\Controllers\ProductController@getData']);
+Route::get('product-data', ['as' => 'products.data', 'uses' => 'App\Http\Controllers\ProductController@getData']);
 Route::resource('products', ProductController::class);
 
 // home route
@@ -31,11 +31,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // category route 
 Route::resource('categories', CategoryController::class);
-Route::get('category', ['as' => 'category', 'uses' => 'App\Http\Controllers\CategoryController@getData']);
+Route::get('category-data', ['as' => 'categories.data', 'uses' => 'App\Http\Controllers\CategoryController@getData']);
 
 Route::group(['middleware' => ['admin']], function () {
 
 // User route 
 Route::resource('users',UserController::class);
-Route::get('user', ['as' => 'user', 'uses' => 'App\Http\Controllers\UserController@getData']);
+Route::get('user-data', ['as' => 'users.data', 'uses' => 'App\Http\Controllers\UserController@getData']);
 });

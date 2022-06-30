@@ -68,7 +68,7 @@ Users
             processing: false,
             serverSide: true,
             responsive: true,
-            ajax: "{{ route('user') }}",
+            ajax: "{{ route('users.data') }}",
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -101,7 +101,7 @@ Users
 
     });
 
-    var root_url_user = <?php echo json_encode(route('user')) ?>;
+    var root_url_user = <?php echo json_encode(route('users.data')) ?>;
     var store_user = "{{route('users.store')}}";
     var update_user = "{{route('users.update','')}}";
 </script>

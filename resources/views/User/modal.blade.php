@@ -63,8 +63,10 @@
                             <label class="col-form-label">User Type<span class="text-danger">*</span></label>
                             <div class="row mb-3 col-form-label text-md-end">
                                 <label class="radio-inline col-md-3">
+                                <!-- {{ Form::radio('type', Request::old('tyoe'),array('id' => 'type','class'=>"form-control",'name'=>'user')) }} -->
                                     <input type="radio" id="smt-fld-1-2" value="user"name="type">User</label>
                                 <label class="radio-inline col-md-5">
+                                <!-- {{ Form::radio('type', Request::old('tyoe'),array('id' => 'type','class'=>"form-control",'name'=>'admin')) }} -->
                                     <input type="radio" id="smt-fld-1-3" value="admin" name="type">Admin</label>
                             </div>
                         </div>

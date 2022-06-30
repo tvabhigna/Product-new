@@ -32,13 +32,7 @@ $("#productdata").submit(function (event) {
         contentType: false,
         dataType: "json",
         success: function (category) {
-            $("#categoryModal").modal("hide");
-            Swal.fire({
-                position: "top",
-                icon: "success",
-                title: "Success",
-                showConfirmButton: false,
-            });
+            $("#modal-id").modal("hide");
             location.reload();
         },
         error: function (category) {
@@ -83,7 +77,7 @@ $("body").on("click", "#editProduct", function (event) {
         $("#product_id").val(data.data.id);
         $("#name").val(data.data.name);
         $("#price").val(data.data.price);
-        $("#category").val(data.data.category);
+        $("#category_id").val(data.data.category_id);
         $("#image").val(data.data.image);
     });
 });

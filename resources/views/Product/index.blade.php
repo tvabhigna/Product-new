@@ -68,7 +68,7 @@ Product
             processing: false,
             serverSide: true,
             responsive: true,
-            ajax: "{{ route('data') }}",
+            ajax: "{{ route('products.data') }}",
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -82,8 +82,8 @@ Product
                     name: 'price'
                 },
                 {
-                    data: 'category',
-                    name: 'category'
+                    data: 'category_id',
+                    name: 'category_id'
                 },
                 {
                     data: 'image',
@@ -101,7 +101,7 @@ Product
 
     });
 
-    var root_url_product = <?php echo json_encode(route('data')) ?>;
+    var root_url_product = <?php echo json_encode(route('products.data')) ?>;
     var store_product = "{{route('products.store')}}";
     var update_product = "{{route('products.update','')}}";
 </script>

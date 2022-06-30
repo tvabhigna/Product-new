@@ -50,7 +50,7 @@
                         <div class="row">
                             <label class="col-form-label">Category<span class="text-danger" id="categoryError">*</span></label>
                             <div class="col">
-                                {{ Form::text('category',Request::old('category'),array('id' => 'category','class'=>"form-control",'name'=>'category')) }}
+                                {{ Form::select('category_id', $categories, isset($categoryIds) ? $categoryIds : null, array('id' => 'category_id','class'=>"form-control select2"))}}
                                 <!-- @if ($errors->has('category'))
                                     <span class="text-danger">{{ $errors->first('category') }}</span>
                                 @endif -->

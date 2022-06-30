@@ -65,7 +65,7 @@ Category
             processing: false,
             serverSide: true,
             responsive: true,
-            ajax: "{{ route('category') }}",
+            ajax: "{{ route('categories.data') }}",
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -86,7 +86,7 @@ Category
 
     });
 
-    var root_url_category = <?php echo json_encode(route('category')) ?>;
+    var root_url_category = <?php echo json_encode(route('categories.data')) ?>;
     var store_category = "{{route('categories.store')}}";
     var update_category = "{{route('categories.update','')}}";
 </script>
