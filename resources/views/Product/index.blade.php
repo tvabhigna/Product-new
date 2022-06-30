@@ -29,7 +29,7 @@ Product
     </div>
 </div>
 <!-- View Modal Product-->
-<div id="modal_for_view" class="modal" tabindex="-1">
+<div id="productView" class="modal" tabindex="-1">
     <div class="modal-dialog shadow">
         <div class="modal-content bg-teal-300 view-table-bg ">
             <div class="modal-header shadow">
@@ -40,7 +40,7 @@ Product
 
             <div class="modal-body">
                 <table class="table table_for_view shadow">
-                    <tbody id="modal-table-data">
+                    <tbody id="modal-table-data_product">
 
                     </tbody>
                 </table>

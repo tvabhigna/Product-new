@@ -32,6 +32,7 @@ class UserController extends Controller
             '<a class="btn btn-outline-primary ml-1 shadow"  id="editUser" data-id="' . $data->id . '" data-toggle="modal" data-target="#userModal">Edit</a> ' .
             '<a href="javascript:;" data-url="' . route('users.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple shadow"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
         })
+
         ->rawColumns(['action'])
         ->make(true);
     }

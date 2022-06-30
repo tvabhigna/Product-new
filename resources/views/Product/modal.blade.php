@@ -1,22 +1,22 @@
-<div class="modal fade" id="modal-id">
+<div class="modal fade" id="productModal">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header shadow">
-                <h4 class="modal-title" id="productCrudModal"></h4>
+                <h4 class="modal-title" id="productTitleID"></h4>
                 <a href="{{ url('/products') }}" class="btn btn-primary shadow">Cancel</a>
 
             </div>
 
             <div class="modal-body container justify-content-center row">
 
-                {{ Form::open(['route'=>'products.store','enctype'=>'multipart/form-data','id'=>'productdata']) }}
+                {{ Form::open(['route'=>'products.store','enctype'=>'multipart/form-data','id'=>'productForm']) }}
                 @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
                 @endif
                 @csrf
                 <input type="hidden" id="product_id" name="product_id" value="">
-                <input type="hidden" name="_method" id="formMethod">
+                <input type="hidden" name="_method" id="productFormMethod">
 
                 <!-- data -->
                 <div class="row">

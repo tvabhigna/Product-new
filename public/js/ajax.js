@@ -2,18 +2,18 @@
 
 $("body").on("click", "#createNewProduct", function (e) {
     e.preventDefault;
-    $("#productdata").attr("action", store_product);
-    $("#productCrudModal").html("Create product");
+    $("#productForm").attr("action", store_product);
+    $("#productTitleID").html("Create product");
     $("#submit").val("Create product");
-    $("#formMethod").val("post");
-    $("#modal-id").modal("show");
+    $("#productFormMethod").val("post");
+    $("#productModal").modal("show");
     $("#product_id").val("");
-    $("#productdata").trigger("reset");
+    $("#productForm").trigger("reset");
 });
 
 // //Save data into database
 
-$("#productdata").submit(function (event) {
+$("#productForm").submit(function (event) {
     event.preventDefault();
     var id = $("#product_id").val();
     let form = $(this);
@@ -32,7 +32,7 @@ $("#productdata").submit(function (event) {
         contentType: false,
         dataType: "json",
         success: function (category) {
-            $("#modal-id").modal("hide");
+            $("#productModal").modal("hide");
             location.reload();
         },
         error: function (category) {
@@ -54,13 +54,13 @@ $("body").on("click", ".modal-popup-view", function () {
             $.each(data, function (k, v) {
                 view_html += "<tr><td>" + k + "</td><th>" + v + "</th></tr>";
             });
-            $("#modal-table-data").html(view_html);
-            $("#modal_for_view").show();
+            $("#modal-table-data_product").html(view_html);
+            $("#productView").show();
         },
     });
 });
 $("body").on("click", ".modal-close-btn-show", function () {
-    $("#modal_for_view").hide();
+    $("#productView").hide();
 });
 
 //Edit modal window
@@ -69,11 +69,11 @@ $("body").on("click", "#editProduct", function (event) {
     $("#productdata").trigger("reset");
     var id = $(this).data("id");
     $.get(store_product + "/" + id + "/edit", function (data) {
-        $("#productdata").attr("action", update_product + "/" + data.data.id);
-        $("#formMethod").val("put");
-        $("#productCrudModal").html("Edit product");
+        $("#productForm").attr("action", update_product + "/" + data.data.id);
+        $("#productFormMethod").val("put");
+        $("#productTitleID").html("Edit product");
         $("#submit").val("Edit product");
-        $("#modal-id").modal("show");
+        $("#productModal").modal("show");
         $("#product_id").val(data.data.id);
         $("#name").val(data.data.name);
         $("#price").val(data.data.price);
