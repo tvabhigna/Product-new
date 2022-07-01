@@ -58,14 +58,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9 col-12 mb-4">
-                        <div class="row">
+                <div class="col-md-9 col-12 mb-4">
+                        <div class="col">
                             <label class="col-form-label">User Type<span class="text-danger">*</span></label>
-                            <div class="row mb-6 col-form-label text-md-strt">
-                                <label class="radio-inline row-md-3">
-                                {{ Form::radio('type','user','', Request::old('type') ,array('id' => 'user','class'=>"form-check-input",'name'=>'type')) }}{{'user'}}
-                                <label class="radio-inline row-md-1">
-                                {{ Form::radio('type','admin','', Request::old('type') ,array('id' => 'admin','class'=>"form-check-input",'name'=>'type')) }}{{'admin'}}
+                            <div class="col col-form-label text-md-middle">
+                                <label class="radio-inline col-md-4 ">
+                                <input type="radio" name="type" class="form-check-input user" value="user">{{'user'}}
+                                <!-- {{ Form::radio('type','user','', Request::old('type') ,array('id' => 'user','class'=>"form-check-input User",'name'=>'type')) }}{{'user'}} -->
+                                <label class="radio-inline">
+                                <input type="radio" name="type" class="form-check-input admin" value="admin">{{'admin'}}
+
+                                <!-- {{ Form::radio('type','admin','', Request::old('type') ,array('id' => 'admin','class'=>"form-check-input Admin">'type')) }}{{'admin'}} -->
                             </div>
                         </div>
                     </div>

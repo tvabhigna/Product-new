@@ -85,7 +85,13 @@ $("body").on("click", "#editUser", function (event) {
         $("#name").val(data.data.name);
         $("#email").val(data.data.email);
         $("#password").val(data.data.password);
-        $("#type").val(data.data.type);
+        $("#type").val(data.data.type)
+        if(data.data.type == "user"
+        )
+        {$(".user").attr('checked', true)}
+        else{    
+        $(".admin").attr('checked', true);
+        } 
     });
 });
 

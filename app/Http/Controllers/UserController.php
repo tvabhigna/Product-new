@@ -18,14 +18,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
         return view('User.index');
     }
 
     public function getData(Request $request)
     {
-      return Datatables::of(User::select('id', 'name', 'email', 'password', 'type'))
+        return Datatables::of(User::select('id', 'name', 'email', 'password', 'type'))
         ->addColumn('action', function ($data) {
           return
             '<a href="javascript:;" data-url="' . url('users/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple shadow">Show</i></a>' .
@@ -46,7 +46,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $category = User::create($data);
+        $user = User::create($data);
         return response()->json();    }
 
     /**
