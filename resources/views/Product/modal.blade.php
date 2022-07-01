@@ -11,9 +11,9 @@
             <div class="modal-body container justify-content-center row">
 
                 {{ Form::open(['route'=>'products.store','enctype'=>'multipart/form-data','id'=>'productForm']) }}
-                @if($errors->any())
+                <!-- @if($errors->any())
                 {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
-                @endif
+                @endif -->
                 @csrf
                 <input type="hidden" id="product_id" name="product_id" value="">
                 <input type="hidden" name="_method" id="productFormMethod">
@@ -23,11 +23,9 @@
                     <div class="col-md-9 col-12 mb-4">
                         <div class="row">
                             <label class="col-form-label">Product Name <span class="text-danger" id="nameError">*</span></label>
-                            <div class="col">
+                            <div class="col ">
                                 {{ Form::text('name',Request::old('name'),array('id' => 'name','class'=>"form-control",'name'=>'name')) }}
-                                <!-- @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                @endif -->
+                                <span class="text-danger name" style="display:none">{{ $errors->first('name') }}</span>
                             </div>
                         </div>
                     </div>
@@ -36,11 +34,9 @@
                     <div class="col-md-9 col-12 mb-4">
                         <div class="row">
                             <label class="col-form-label">Price<span class="text-danger" id="priceError">*</span></label>
-                            <div class="col">
+                            <div class="col ">
                                 {{ Form::number('price',Request::old('price'),array('id' => 'price','class'=>"form-control",'name'=>'price')) }}
-                                <!-- @if ($errors->has('price'))
-                                    <span class="text-danger">{{ $errors->first('price') }}</span>
-                                @endif -->
+                                <span class="text-danger price" style="display:none">{{ $errors->first('price') }}</span>
                             </div>
                         </div>
                     </div>
@@ -49,11 +45,9 @@
                     <div class="col-md-9 col-12 mb-4">
                         <div class="row">
                             <label class="col-form-label">Category<span class="text-danger" id="categoryError">*</span></label>
-                            <div class="col">
+                            <div class="col ">
                                 {{ Form::select('category_id', $categories, isset($categoryIds) ? $categoryIds : null, array('id' => 'category_id','class'=>"form-control select2"))}}
-                                <!-- @if ($errors->has('category'))
-                                    <span class="text-danger">{{ $errors->first('category') }}</span>
-                                @endif -->
+                                <span class="text-danger category_id" style="display:none">{{ $errors->first('category_id') }}</span>
                             </div>
                         </div>
                     </div>
@@ -64,9 +58,7 @@
                             <label class="col-form-label">Photo <span class="text-danger" id="imageError">*</span></label>
                             <div class="col">
                                 {{ Form::file('image',Request::old('image'),array('id' => 'image','class'=>"form-control",'name'=>'image')) }}
-                                <!-- @if ($errors->has('image')) 
-                                    <span class="text-danger">{{ $errors->first('image') }}</span>
-                                @endif -->
+                                <span class="text-danger image" style="display:none">{{ $errors->first('image') }}</span>
                             </div>
                         </div>
                     </div>

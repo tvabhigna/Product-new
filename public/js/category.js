@@ -47,9 +47,15 @@ $("#categoryForm").submit(function (event) {
             });
             location.reload();
         },
-        error: function (data) {
-            console.log("Error......");
-        },
+        error: function (err) {
+            // console.log(err);
+            var data = jQuery.parseJSON(err.responseText);
+            console.log(data.errors);
+            $.each(data.errors, function(key, value) {
+                $("." + key + "").css('display', 'block');
+                $("." + key + "").html(value[0]);
+            })
+        }
     });
 });
 

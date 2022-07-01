@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Yajra\Datatables\Datatables;
 use App\Foo\Bar;
@@ -23,7 +24,7 @@ class UserController extends Controller
         return view('User.index');
     }
 
-    public function getData(Request $request)
+    public function getData()
     {
         return Datatables::of(User::select('id', 'name', 'email', 'password', 'type'))
         ->addColumn('action', function ($data) {
@@ -40,10 +41,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $data = $request->all();
         $user = User::create($data);
@@ -87,7 +88,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,User $user)
+    public function update(UserRequest $request,User $user)
     {
         $data = $request->all();
         $user->update($data);

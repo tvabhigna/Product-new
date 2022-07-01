@@ -24,9 +24,7 @@
                             <label class="col-form-label">User Name <span class="text-danger">*</span></label>
                             <div class="col">
                                 {{ Form::text('name',Request::old('name'),array('id' => 'name','class'=>"form-control",'name'=>'name')) }}
-                                <!-- @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                @endif -->
+                                <span class="text-danger name" style="display:none">{{ $errors->first('name') }}</span>
                             </div>
                         </div>
                     </div>
@@ -37,9 +35,7 @@
                             <label class="col-form-label">Email<span class="text-danger">*</span></label>
                             <div class="col">
                                 {{ Form::text('email',Request::old('email'),array('id' => 'email','class'=>"form-control",'name'=>'email')) }}
-                                <!-- @if ($errors->has('price'))
-                                    <span class="text-danger">{{ $errors->first('price') }}</span>
-                                @endif -->
+                                <span class="text-danger email" style="display:none">{{ $errors->first('email') }}</span>
                             </div>
                         </div>
                     </div>
@@ -50,9 +46,7 @@
                             <label class="col-form-label">Password<span class="text-danger" id="categoryError">*</span></label>
                             <div class="col">
                                 {{ Form::text('password',Request::old('password'),array('id' => 'password','class'=>"form-control",'name'=>'password')) }}
-                                <!-- @if ($errors->has('category'))
-                                    <span class="text-danger">{{ $errors->first('category') }}</span>
-                                @endif -->
+                                <span class="text-danger password" style="display:none">{{ $errors->first('password') }}</span>
                             </div>
                         </div>
                     </div>
@@ -67,8 +61,8 @@
                                 <!-- {{ Form::radio('type','user','', Request::old('type') ,array('id' => 'user','class'=>"form-check-input User",'name'=>'type')) }}{{'user'}} -->
                                 <label class="radio-inline">
                                 <input type="radio" name="type" class="form-check-input admin" value="admin">{{'admin'}}
-
                                 <!-- {{ Form::radio('type','admin','', Request::old('type') ,array('id' => 'admin','class'=>"form-check-input Admin">'type')) }}{{'admin'}} -->
+                                <span class="text-danger type" style="display:none">{{ $errors->first('type') }}</span>
                             </div>
                         </div>
                     </div>

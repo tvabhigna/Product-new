@@ -42,8 +42,14 @@ $("#userForm").submit(function (event) {
 
             location.reload();
         },
-        error: function (data) {
-            console.log("Error......");
+        error: function (err) {
+            // console.log(err);
+            var data = jQuery.parseJSON(err.responseText);
+            console.log(data.errors);
+            $.each(data.errors, function(key, value) {
+                $("." + key + "").css('display', 'block');
+                $("." + key + "").html(value[0]);
+            })
         },
     });
 });
@@ -115,7 +121,7 @@ $("body").on("click", ".modal-delete-confirm", function () {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
         url: id,
-        type: "DELETE", // category.destroy
+        type: "DELETE", // user.destroy
         dataType: "json",
         success: function (result) {
             $("#modal_delete_warning").modal("hide");

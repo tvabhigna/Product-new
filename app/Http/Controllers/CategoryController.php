@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Yajra\Datatables\Datatables;
 use App\Foo\Bar;
@@ -14,7 +15,7 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function getData(Request $request)
+    public function getData()
     {
         return Datatables::of(Category::select('id', 'name'))
             ->addColumn('action', function ($data) {
@@ -40,10 +41,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\CategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $data = $request->all();
         $category = Category::create($data);
@@ -81,11 +82,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\CategoryRequest  $request
      * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $data = $request->all();
         $category->update($data);

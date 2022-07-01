@@ -10,9 +10,6 @@
             <div class="modal-body container justify-content-center row">
 
                 {{ Form::open(['route'=>'categories.store','enctype'=>'multipart/form-data','id'=>'categoryForm']) }}
-                @if($errors->any())
-                {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
-                @endif
                 @csrf
                 <input type="hidden" id="category_id" name="category_id" value="">
                 <input type="hidden" name="_method" id="categoryFormMethod">
@@ -24,9 +21,7 @@
                             <label class="col-form-label">Category Name <span class="text-danger" id="nameError">*</span></label>
                             <div class="col">
                                 {{ Form::text('name',Request::old('name'),array('id' => 'name','class'=>"form-control",'name'=>'name')) }}
-                                <!-- @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                @endif -->
+                                <span class="text-danger name" style="display:none">{{ $errors->first('name') }}</span>
                             </div>
                         </div>
                     </div>

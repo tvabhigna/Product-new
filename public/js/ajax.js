@@ -9,7 +9,8 @@ $("body").on("click", "#createNewProduct", function (e) {
     $("#productModal").modal("show");
     $("#product_id").val("");
     $("#productForm").trigger("reset");
-});
+ });
+ 
 
 // //Save data into database
 
@@ -30,15 +31,25 @@ $("#productForm").submit(function (event) {
         cache: false,
         processData: false,
         contentType: false,
-        dataType: "json",
         success: function (category) {
+            console.log('hi');
             $("#productModal").modal("hide");
             location.reload();
+
         },
-        error: function (category) {
-            console.log("Error......");
+        error: function (err) {
+            // console.log(err);
+            var data = jQuery.parseJSON(err.responseText);
+            console.log(data.errors);
+            $.each(data.errors, function(key, value) {
+                $("." + key + "").css('display', 'block');
+                $("." + key + "").html(value[0]);
+            });
+           
+          
         },
     });
+
 });
 
 // show modal window

@@ -17,7 +17,7 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    public function getData(Request $request, Category $category)
+    public function getData(Category $category)
     {
 
         return Datatables::of(Product::with('category')->get())
@@ -45,6 +45,7 @@ class ProductController extends Controller
      */
     public function index(Category $category)
     {
+        // $categoryIds = $partner->categories()->get()->pluck('id')->toArray();
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('Product.index',compact('categories'));
