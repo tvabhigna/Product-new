@@ -130,8 +130,19 @@ class ProductController extends Controller
                 $html .= '<option value="'.$category->id.'">'.$category->name.'</option>';
             }
         }
+        
         if ($request->hasfile('image')) {
-            $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
+
+            if(!empty($product->image)) {
+                $pictures = json_decode($product->image);
+                foreach($pictures as $picture) {
+                    // dd('hi');
+                    // CommonUtil::removeFile($pictures);
+                }
+            }
+           
+            $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
+            $data['image'] = $imageName;
         }
         $product->update($data);
         return response()->json([
