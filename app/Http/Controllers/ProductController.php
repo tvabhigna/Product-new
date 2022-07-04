@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Helper\CommonUtil;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
@@ -71,7 +72,8 @@ class ProductController extends Controller
         }
 
         if ($request->hasfile('image')) {
-            $data['image'] = Storage::disk('public')->putFile('images', $request->file('image'));
+            $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
+            $data['image'] = $imageName;
         }
         $product = Product::create($data);
         return response()->json();
