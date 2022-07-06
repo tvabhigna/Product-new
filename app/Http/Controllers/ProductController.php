@@ -103,11 +103,18 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
-    {
+    {            
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        //  function ($data) {
+        $url = asset('storage/' . $product->image);
 
+        '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
+
+           
         return response()->json([
-            'data' => $product
+
+            'data' => $product,
+        
         ]);
     }
 
@@ -130,18 +137,10 @@ class ProductController extends Controller
                 $html .= '<option value="'.$category->id.'">'.$category->name.'</option>';
             }
         }
-        
-        if ($request->hasfile('image')) {
-
-            if(!empty($product->image)) {
-                $pictures = json_decode($product->image);
-                foreach($pictures as $picture) {
-                    // dd('hi');
-                    // CommonUtil::removeFile($pictures);
-                }
-            }
-           
-            $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
+        if ($request->hasfile('image')) 
+        {
+            $productImage = $request->file('image');
+            $imageName = Storage::disk('public')->putFile('image', 'public');
             $data['image'] = $imageName;
         }
         $product->update($data);

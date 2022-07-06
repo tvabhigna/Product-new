@@ -33,8 +33,9 @@ $("#productForm").submit(function (event) {
         contentType: false,
         success: function (category) {
             console.log('hi');
-            $("#productModal").modal("hide");
-            location.reload();
+            // $("#productModal").modal("hide");
+            // location.reload();
+            'hello';
 
         },
         error: function (err) {
@@ -89,6 +90,7 @@ $("body").on("click", "#editProduct", function (event) {
         $("#price").val(data.data.price);
         $("#category_id").val(data.data.category_id);
         $("#image").val(data.data.image);
+        console.log(data.data.image);
     });
 });
 

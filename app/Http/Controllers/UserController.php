@@ -48,7 +48,13 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = User::create($data);
-        return response()->json();    }
+        // return response()->json(); 
+        if($user){
+        return ["result"=>"done"];
+    }else{
+        return ["result"=>"not"];
+    }
+    }
 
     /**
      * Display the specified resource.

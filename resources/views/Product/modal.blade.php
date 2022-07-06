@@ -55,6 +55,8 @@
                 <div class="row">
                     <div class="col-md-9 col-12 mb-4">
                         <div class="row">
+                        <img src='' id="edit_image" width="100px;" height="120" class="mt-2">
+                            <p>Old image</p>
                             <label class="col-form-label">Photo <span class="text-danger" id="imageError">*</span></label>
                             <div class="col">
                                 {{ Form::file('image',Request::old('image'),array('id' => 'image','class'=>"form-control",'name'=>'image')) }}
