@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
+use Auth;
+use App\Models\User;
+use Hash;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +41,41 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    /**
+     * Login
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function login(Request $request)
+    {
+            $user = User::where('email',$request->email)->first();
+            if (!$user || !Hash::check($request->password, $user->password)){
+                return response ([
+                    'message' => ['These credentials does not match our records.']
+                ],404);
+            }
+            $token = $user->createToken('my-app-token')->plainTextToken;
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+            return response($response);
+        
+        // }
+    }
+
+    /**
+     * Logout
+     *
+     *
+     * @return Response
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 }

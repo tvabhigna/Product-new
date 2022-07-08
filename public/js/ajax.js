@@ -11,7 +11,6 @@ $("body").on("click", "#createNewProduct", function (e) {
     $("#productForm").trigger("reset");
  });
  
-
 // //Save data into database
 
 $("#productForm").submit(function (event) {
@@ -34,12 +33,12 @@ $("#productForm").submit(function (event) {
         success: function (category) {
             console.log('hi');
             // $("#productModal").modal("hide");
-            // location.reload();
+            location.reload();
             'hello';
 
         },
         error: function (err) {
-            // console.log(err);
+            console.log("Error");
             var data = jQuery.parseJSON(err.responseText);
             $.each(data.errors, function(key, value) {
                 $("." + key + "").css('display', 'block');
@@ -90,7 +89,7 @@ $("body").on("click", "#editProduct", function (event) {
         $("#price").val(data.data.price);
         $("#category_id").val(data.data.category_id);
         $("#image").val(data.data.image);
-        console.log(data.data.image);
+        console.log(data);
     });
 });
 

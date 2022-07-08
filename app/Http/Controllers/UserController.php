@@ -21,12 +21,12 @@ class UserController extends Controller
      */
     public function index(User $user)
     {
-        return view('User.index');
+        return view('user.index');
     }
 
     public function getData()
     {
-        return Datatables::of(User::select('id', 'name', 'email', 'password', 'type'))
+        return Datatables::of(User::select('id', 'name', 'email', 'type'))
         ->addColumn('action', function ($data) {
           return
             '<a href="javascript:;" data-url="' . url('users/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple shadow">Show</i></a>' .
@@ -48,12 +48,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $user = User::create($data);
-        // return response()->json(); 
-        if($user){
-        return ["result"=>"done"];
-    }else{
-        return ["result"=>"not"];
-    }
+        return response()->json(); 
     }
 
     /**
@@ -68,7 +63,6 @@ class UserController extends Controller
             'id'    => $user->id,
             'name'  => $user->name,
             'email'  => $user->email,
-            'password'  => $user->password,
             'type'  => $user->type,
         ];
         return $data;

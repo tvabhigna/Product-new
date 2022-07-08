@@ -22,6 +22,9 @@ class ProductController extends Controller
     {
 
         return Datatables::of(Product::with('category')->get())
+            ->addColumn('category_id',function ($data) {
+            return $data->category->name;
+            })
             ->addColumn('image', function ($data) {
                 $url = asset('storage/' . $data->image);
 
@@ -33,7 +36,7 @@ class ProductController extends Controller
                     '<a class="btn btn-outline-primary ml-1 shadow"  id="editProduct" data-id="' . $data->id . '" data-toggle="modal" data-target="#modal-id">Edit</a> ' .
                     '<a href="javascript:;" data-url="' . route('products.destroy', $data->id) . '" data-id="' . $data->id . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple shadow"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
-            ->rawColumns(['action', 'image'])
+            ->rawColumns(['action', 'image','category_id'])
             ->make(true);
             
             return response()->json(['html' => $html]);
@@ -47,9 +50,9 @@ class ProductController extends Controller
     public function index(Category $category)
     {
         // $categoryIds = $partner->categories()->get()->pluck('id')->toArray();
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
 
-        return view('Product.index',compact('categories'));
+        return view('product.index',compact('categories'));
     }
 
     /**
@@ -61,16 +64,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request, Category $category)
     {
         $data = $request->all();
-        if (!$request->category_id) {
-            $html = '<option value="">'.trans('global.pleaseSelect').'</option>';
-        } else {
-            $html = '';
-            $categories = Category::where('id', $request->category_id)->get();
-            foreach ($categories as $category) {
-                $html .= '<option value="'.$category->id.'">'.$category->name.'</option>';
-            }
-        }
-
+       
         if ($request->hasfile('image')) {
             $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
             $data['image'] = $imageName;
@@ -88,10 +82,10 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $data  = [
-            'id'      =>  $product->id,
-            'name'    =>  $product->name,
-            'price'   =>  $product->price,
-            'category' =>  $product->category_id,
+            'id'        =>  $product->id,
+            'name'      =>  $product->name,
+            'price'     =>  $product->price,
+            'category'  =>  $product->category->name,
         ];
         return $data;
     }
@@ -105,16 +99,12 @@ class ProductController extends Controller
     public function edit(Product $product)
     {            
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        //  function ($data) {
-        $url = asset('storage/' . $product->image);
 
+        $url = asset('storage/' . $product->image);
         '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
 
-           
         return response()->json([
-
             'data' => $product,
-        
         ]);
     }
 
@@ -128,19 +118,8 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $data = $request->all();
-        if (!$request->category_id) {
-            $html = '<option value="">'.trans('global.pleaseSelect').'</option>';
-        } else {
-            $html = '';
-            $categories = Category::where('id', $request->category_id)->get();
-            foreach ($categories as $category) {
-                $html .= '<option value="'.$category->id.'">'.$category->name.'</option>';
-            }
-        }
-        if ($request->hasfile('image')) 
-        {
-            $productImage = $request->file('image');
-            $imageName = Storage::disk('public')->putFile('image', 'public');
+        if ($request->hasfile('image')) {
+            $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
             $data['image'] = $imageName;
         }
         $product->update($data);

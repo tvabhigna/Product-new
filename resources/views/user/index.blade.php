@@ -1,4 +1,4 @@
-@extends('master.layout')
+@extends('layout.master')
 @section('title')
 Users
 @endsection
@@ -16,7 +16,6 @@ Users
                     <th>ID</th>
                     <th>User Name</th>
                     <th>Email Address</th>
-                    <th>Password</th>
                     <th>User Type</th>
                     <th>Action</th>
                 </tr>
@@ -25,7 +24,7 @@ Users
 
             </tbody>
         </table>
-        @include('User.modal')
+        @include('user.modal')
     </div>
 </div>
 <!-- View Modal Product-->
@@ -80,10 +79,6 @@ Users
                 {
                     data: 'email',
                     name: 'email'
-                },
-                {
-                    data: 'password',
-                    name: 'password'
                 },
                 {
                     data: 'type',

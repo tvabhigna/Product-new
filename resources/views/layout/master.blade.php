@@ -24,7 +24,7 @@
 
 <body>
 
-    @include('master.navbar')
+    @include('layout.navbar')
 
     <!-- delete modal -->
     <div id="modal_delete_warning" class="modal" tabindex="-1">
