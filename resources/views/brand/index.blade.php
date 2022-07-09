@@ -16,6 +16,7 @@ Brand
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Category</th>
                     <th>Status</th>
                     <th>Image</th>
                     <th>Action</th>
@@ -75,6 +76,10 @@ Brand
                 {
                     data: 'name',
                     name: 'name'
+                },
+                {
+                    data: 'category_id',
+                    name: 'category_id'
                 },
                 {
                     data: 'status',

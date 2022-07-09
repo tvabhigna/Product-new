@@ -34,6 +34,17 @@ Brand
                 </div>
             </div>
             <div class="row">
+                    <div class="col-md-9 col-12 mb-4">
+                        <div class="row">
+                            <label class="col-form-label">Category<span class="text-danger" id="categoryError">*</span></label>
+                            <div class="col ">
+                                {{ Form::select('category_id', $categories, isset($categoryIds) ? $categoryIds : null, array('id' => 'category_id','class'=>"form-control select2"))}}
+                                <span class="text-danger category_id" style="display:none">{{ $errors->first('category_id') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row">
                 <div class="col-md-9 col-12 mb-6">
                         <div class="row">
                             <label class="col-form-label">Status<span class="text-danger">*</span></label>
@@ -65,7 +76,7 @@ Brand
                         <p>Old image</p> -->
                         <label class="col-form-label">Photo <span class="text-danger" id="imageError">*</span></label>
                         <div class="col">
-                            {{ Form::file('image',Request::old('image'),array('id' => 'image','class'=>"form-control",'name'=>'image')) }}
+                            {{ Form::file('image[]',array('id' => 'image','class'=>"form-control",'name'=>'image[]','multiple'=>'true')) }}
                             <span class="text-danger image" style="display:none">{{ $errors->first('image') }}</span>
                         </div>
                     </div>

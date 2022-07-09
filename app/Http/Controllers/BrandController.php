@@ -8,15 +8,18 @@ use App\Models\Brand;
 use Yajra\Datatables\Datatables;
 use App\Foo\Bar;
 use Session;
+use App\Models\Category;
 
 class BrandController extends Controller
 {
     public function getData()
     {
-        return Datatables::of(Brand::select('id','name','status','image') )
+        return Datatables::of(Brand::with('category')->get())
+        ->addColumn('category_id',function ($data) {
+            return $data->category->name;
+            })
         ->addColumn('image', function ($data) {
             $url = asset('storage/' . $data->image);
-
             return '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
         })
             ->addColumn( 'action', function ( $data ){
@@ -25,7 +28,7 @@ class BrandController extends Controller
                 '<a href="' . url( 'brands/' . $data->id . '/edit' ) . '"class="btn btn-outline-primary ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
                 '<a href="javascript:;" data-url="' .route('brands.destroy', $data->id) . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
-        ->rawColumns(['action','image'])
+        ->rawColumns(['category','action','image'])
         ->make( true );
     }
     /**
@@ -43,9 +46,10 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Brand $brand)
+    public function create(Brand $brand,Category $category)
     {
-        return view('brand.create_update');
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
+        return view('brand.create_update',compact('categories'));
     }
 
     /**
@@ -54,13 +58,16 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Brand $brand)
+    public function store(Request $request,Brand $brand,Category $category)
     {
         $data = $request->all();
-            if ($request->hasfile('image')) {
+            
+                $image = $request->hasfile('image');
+                if (is_array($request->hasfile('image')) ) {
+                foreach($image as $imagename){
                 $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'brand' );
                 $data['image'] = $imageName;
-            }
+            }}
         if ($brand = Brand::create($data)) {
             // dd($data['image']);
             Session::flash('success', 'Brand has been added!');
@@ -69,7 +76,7 @@ class BrandController extends Controller
             Session::flash('error', 'Unable to create brand.');
             return redirect(route('brands.create_update'))->withInput();
         }    
-        }
+    }
 
     /**
      * Display the specified resource.
