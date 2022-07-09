@@ -34,6 +34,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('brands.index') }}">Brand</a>
+                </li>
                 @if(Auth::user()->type=='admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.index') }}">Users</a>
