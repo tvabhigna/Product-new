@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classes\Helper\CommonUtil;
 use App\Models\Brand;
+use App\Models\Imageable;
 use Yajra\Datatables\Datatables;
 use App\Foo\Bar;
 use Session;
@@ -19,10 +20,15 @@ class BrandController extends Controller
             return $data->category->name;
             })
         ->addColumn('image', function ($data) {
-            $url = asset('storage/' . $data->image);
-            return '<img src="' . $url . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
-        })
-            ->addColumn( 'action', function ( $data ){
+            if (isset($request->image) ) {
+                foreach($data->image as $image){
+            $image = asset('storage/' . $data->image);
+            
+      
+    return '<img src="' . $image . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
+}} 
+    })
+        ->addColumn( 'action', function ( $data ){
             return
                 '<a href="javascript:;" data-url="' . url( 'brands/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
                 '<a href="' . url( 'brands/' . $data->id . '/edit' ) . '"class="btn btn-outline-primary ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
@@ -61,15 +67,15 @@ class BrandController extends Controller
     public function store(Request $request,Brand $brand,Category $category)
     {
         $data = $request->all();
-            
-                $image = $request->hasfile('image');
-                if (is_array($request->hasfile('image')) ) {
-                foreach($image as $imagename){
-                $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'brand' );
-                $data['image'] = $imageName;
-            }}
         if ($brand = Brand::create($data)) {
-            // dd($data['image']);
+            if (isset($request->image) ) {
+            foreach($request->image as $image){
+            $fileModal = new Imageable();
+            $fileModal->image = CommonUtil::uploadFileToFolder($image, 'brand' );
+            $fileModal->brand_id = $brand->id;
+            $fileModal->save();
+        }}
+        $data['image'] = json_encode($fileModal);
             Session::flash('success', 'Brand has been added!');
             return redirect(route('brands.index'));
         } else {
@@ -100,10 +106,11 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Brand $brand,Category $category)
     {
+        $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
         return view('brand.create_update')
-        ->with(compact('brand', $brand));    }
+        ->with(compact('brand', $brand,'categories'));    }
 
     /**
      * Update the specified resource in storage.
@@ -112,16 +119,19 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Brand $brand)
+    public function update(Request $request,Brand $brand,Category $category)
     {
         $data = $request->all();
         
-            if ($request->hasfile('image')) {
-                $imageName = CommonUtil::uploadFileToFolder( $request->file('image'), 'public' );
-                $data['image'] = $imageName;
-            }
-            if($brand->update($data)){
-
+        if($brand->update($data)){
+        if (isset($request->image) ) {
+            foreach($request->image as $image){
+            $fileModal = new Imageable();
+            $fileModal->image = CommonUtil::uploadFileToFolder($image, 'brand' );
+            $fileModal->brand_id = $brand->id;
+            $fileModal->save();
+        }}
+            
             Session::flash('success', 'Brand has been updated!');
             return redirect(route('brands.index'));
             } else {
