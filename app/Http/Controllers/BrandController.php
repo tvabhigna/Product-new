@@ -15,19 +15,21 @@ class BrandController extends Controller
 {
     public function getData()
     {
-        return Datatables::of(Brand::with('category')->get())
+        return Datatables::of(Brand::with('category','imageable')->get())
         ->addColumn('category_id',function ($data) {
             return $data->category->name;
             })
         ->addColumn('image', function ($data) {
-            if (isset($request->image) ) {
-                foreach($data->image as $image){
-            $image = asset('storage/' . $data->image);
-            
-      
-    return '<img src="' . $image . '" border="0" width="100" height="100" class="img-rounded shadow-lg" align="center" />';
-}} 
-    })
+            $images = json_decode($data->imageable);
+            if ((is_array($images) )) {
+                $imgs="";
+                foreach ($images as $image ) {
+                    $url= asset('storage/'.$image->image);
+                    $imgs .= '<img src="'.$url.'"  border="0" width="120" height="100" class="img-rounded shadow-lg" align="center"  />' ;
+                } 
+            }
+            return $imgs;
+            })
         ->addColumn( 'action', function ( $data ){
             return
                 '<a href="javascript:;" data-url="' . url( 'brands/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .

@@ -16,7 +16,7 @@ class Brand extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function images()
+    public function imageable()
     {
         return $this->hasMany(Imageable::class);    
     }

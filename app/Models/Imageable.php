@@ -11,7 +11,7 @@ class Imageable extends Model
     protected $table = 'imageables';
     protected $guarded = ['id'];
     
-    public function Brand(){
+    public function brand(){
         return $this->belongsTo(Brand::class);
     }
 }
