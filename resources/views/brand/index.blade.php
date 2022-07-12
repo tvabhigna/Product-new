@@ -8,6 +8,7 @@ Brand
     <div class="card">
     <h3 class="card-header shadow text-muted text-center">Brands
         <a class="btn btn-sm btn-primary shadow" id="createNewCategory"href="{{ route('brands.create')}}" >Add brand</a>
+        <a class="btn btn-sm btn-primary shadow" id="showImage"href="{{ route('brands.image')}}" >Show image</a>
 
     </h3>
     <div class="card-body shadow">
@@ -28,7 +29,7 @@ Brand
         </table>
     </div>
 </div>
-<!-- View Modal Category-->
+<!-- View Modal Brand-->
 <div id="brandView" class="modal" tabindex="-1">
     <div class="modal-dialog shadow-lg">
         <div class="modal-content bg-teal-300 view-table-bg">
@@ -53,9 +54,20 @@ Brand
     </div>
 </div>
 <!-- /view modal  -->
+<!-- Image row -->
+<div id="imageRow" class="row">
+    <div class="table-heading rowHeader">
+        <h5 class="row-title">Images</h5>
+    </div>
+    <div>
+        
+    </div>
+</div>
+<!-- /Image row -->
+
 @section('script')
 
-<script type="text/javascript">
+<script type="text/""javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -95,6 +107,19 @@ Brand
                     orderable: true,
                     searchable: false,
                     paging: true,
+                },
+            ]
+        });
+
+    });
+
+    jQuery(function() {
+        window.dataGridTable = jQuery('#').DataTable({
+            
+            ajax: "{{ route('brands.image') }}",
+            addColumns: [{
+                    data: 'image',
+                    name: 'image'
                 },
             ]
         });

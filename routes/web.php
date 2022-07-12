@@ -46,3 +46,4 @@ Route::get('user-data', ['as' => 'users.data', 'uses' => 'App\Http\Controllers\U
 // Brand route
 Route::resource('brands',BrandController::class);
 Route::get('brand-data', ['as' => 'brands.data', 'uses' => 'App\Http\Controllers\BrandController@getData']);
+Route::get('image', ['as' => 'brands.image', 'uses' => 'App\Http\Controllers\BrandController@showImage']);
