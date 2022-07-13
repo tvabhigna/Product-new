@@ -95,3 +95,25 @@ $("body").on("click", ".modal-delete-confirm", function () {
         },
     });
 });
+
+
+
+
+
+$('#showImage').on('click', ".showImage",function(e) {
+    $.ajax({
+        url : show_image,
+        type : 'GET',
+        dataType : 'json',
+        success : function(data) {
+            console.log(data);
+            $('#data-table thead').append("<tr><th>" + "Image Show" + "</th></tr>");
+            $('#data-table tbody').append("<tr><td>" + data + "</td></tr>");
+        },
+
+        error : function() {
+
+            console.log('error');
+        }
+    });
+});

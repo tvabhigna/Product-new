@@ -34,14 +34,14 @@ class BrandController extends Controller
             return
                 '<a href="javascript:;" data-url="' . url( 'brands/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
                 '<a href="' . url( 'brands/' . $data->id . '/edit' ) . '"class="btn btn-outline-primary ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
-                '<a href="javascript:;" data-url="' .route('brands.destroy', $data->id) . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
-                // '<a href="javascript:;" data-url="' .route('brands.destroy', $data->id) . '" class="btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Show image</a>';
+                '<a href="javascript:;" data-url="' .route('brands.destroy', $data->id) . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>'.
+                '<a href="javascript:;" data-url="' .route('brands.image') . '" id="showImage"class="showImage btn btn-outline-danger  ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Show image</a>';
             })
         ->rawColumns(['category','action','image'])
         ->make( true );
     }
 
-    public function showImage(Brand $brand,Imageable $imageable){
+    public function showImage(Request $request,Brand $brand,Imageable $imageable){
         if(Imageable::get('image')){
             $images = json_decode(Imageable::get('image'));
             // dd($images);

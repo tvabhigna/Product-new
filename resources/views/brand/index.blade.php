@@ -8,12 +8,13 @@ Brand
     <div class="card">
     <h3 class="card-header shadow text-muted text-center">Brands
         <a class="btn btn-sm btn-primary shadow" id="createNewCategory"href="{{ route('brands.create')}}" >Add brand</a>
-        <a class="btn btn-sm btn-primary shadow" id="showImage"href="{{ route('brands.image')}}" >Show image</a>
+        <!-- <a class="btn btn-sm btn-primary shadow" id="showImage"href="{{ route('brands.image')}}" >Show image</a> -->
+        <a class="btn btn-sm btn-primary shadow" id="showImage"href="javascript:;" >Show image</a>
 
     </h3>
     <div class="card-body shadow">
         <table class="table table-hover text-center shadow" ID="data-table">
-            <thead>
+            <thead class="thead">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -55,14 +56,18 @@ Brand
 </div>
 <!-- /view modal  -->
 <!-- Image row -->
-<div id="imageRow" class="row">
-    <div class="table-heading rowHeader">
-        <h5 class="row-title">Images</h5>
-    </div>
-    <div>
+<!-- <div id="imageRow" class="row">
+    <thead>
+    <tr>
+       <th>Images</th>
+    </tr>
+    </thead>
+    <tbody class="tbody">
+
+   </tbody>
         
     </div>
-</div>
+</div> -->
 <!-- /Image row -->
 
 @section('script')
@@ -76,6 +81,7 @@ Brand
 </script>
 <script type="text/javascript">
     jQuery(function() {
+
         window.dataGridTable = jQuery('#data-table').DataTable({
             processing: false,
             serverSide: true,
@@ -112,23 +118,27 @@ Brand
         });
 
     });
+    $('#showImage').on('click', function(e) {
+    $.ajax({
+        url : show_image,
+        type : 'GET',
+        // dataType : 'json',
+        success : function(data) {
+            console.log(data);
+            $('#data-table thead').append("<tr><th>" + "Image Show" + "</th></tr>");
+            $('#data-table tbody').append("<tr><td>" + data + "</td></tr>");
+        },
 
-    jQuery(function() {
-        window.dataGridTable = jQuery('#').DataTable({
-            
-            ajax: "{{ route('brands.image') }}",
-            addColumns: [{
-                    data: 'image',
-                    name: 'image'
-                },
-            ]
-        });
+        error : function() {
 
+            console.log('error');
+        }
     });
-
+});
     var root_url_brand = "{{route('brands.data')}}";
     var store_brand = "{{route('brands.store')}}";
     var update_brand = "{{route('brands.update','')}}";
+    var show_image = "{{route('brands.image','')}}"
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
