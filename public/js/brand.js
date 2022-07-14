@@ -98,8 +98,6 @@ $("body").on("click", ".modal-delete-confirm", function () {
 
 
 
-
-
 $('#showImage').on('click', ".showImage",function(e) {
     $.ajax({
         url : show_image,

@@ -118,6 +118,7 @@ Brand
         });
 
     });
+
     $('#showImage').on('click', function(e) {
     $.ajax({
         url : show_image,
@@ -125,8 +126,8 @@ Brand
         // dataType : 'json',
         success : function(data) {
             console.log(data);
-            $('#data-table thead').append("<tr><th>" + "Image Show" + "</th></tr>");
-            $('#data-table tbody').append("<tr><td>" + data + "</td></tr>");
+            $('#data-table thead tr').append("<th>" + "Image Show" + "</th>");
+            $('#data-table tbody').prepend("<td>" + data +"</td>");
         },
 
         error : function() {
