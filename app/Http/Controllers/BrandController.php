@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\BrandRequest;
 use App\Classes\Helper\CommonUtil;
 use App\Models\Brand;
 use App\Models\Imageable;
@@ -13,6 +14,11 @@ use App\Models\Category;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getData()
     {
         return Datatables::of(Brand::with('category','imageable')->get())
@@ -35,17 +41,15 @@ class BrandController extends Controller
                 '<a href="javascript:;" data-url="' . url( 'brands/' . $data->id ) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple">Show</i></a>' .
                 '<a href="' . url( 'brands/' . $data->id . '/edit' ) . '"class="btn btn-outline-primary ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Edit</a>' .
                 '<a href="javascript:;" data-url="' .route('brands.destroy', $data->id) . '" class="modal-popup-delete btn btn-outline-danger ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Delete</a>'.
-                '<a href="javascript:;" data-url="' . url( 'image/' . $data->id )  . '" id="showImage" class="showImage btn btn-outline-danger  ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Show image</a>';
+                '<a href="javascript:;" data-url="' .route('brands.image', $data->id) . '"data-id="' .  $data->id   . '" id="showImage" class="showImage btn btn-outline-danger  ml-1 legitRipple"><i class="glyphicon glyphicon-edit"></i> Show image</a>';
             })
         ->rawColumns(['category','action','image'])
         ->make( true );
     }
 
-    public function showImage(Request $request,Brand $brand,Imageable $imageable){
-        if(Imageable::get()){
-            // dd(Imageable::get());
-            $images = json_decode(Imageable::get('image','brand_id'));
-            // dd($images);
+    public function showImage($id){
+        if(Imageable::where('brand_id',$id)->get()){
+            $images = json_decode(Imageable::where('brand_id',$id)->get());
             if ((is_array($images) )) {
                 $imgs="";
                 foreach ($images as $image ) {
@@ -75,8 +79,16 @@ class BrandController extends Controller
      */
     public function create(Brand $brand,Category $category)
     {
+       
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
+        // if($categories!='id'){
+        //     // dd('hie');
+        //     Session::flash('hello', 'you have to add category first.');
+        //     return view('category.index');
+        // }
+        // else{
         return view('brand.create_update',compact('categories'));
+    // }
     }
 
     /**
@@ -85,7 +97,7 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Brand $brand,Category $category)
+    public function store(BrandRequest $request,Brand $brand,Category $category)
     {
         $data = $request->all();
         if ($brand = Brand::create($data)) {
@@ -140,7 +152,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Brand $brand,Category $category)
+    public function update(BrandRequest $request,Brand $brand,Category $category)
     {
         $data = $request->all();
         

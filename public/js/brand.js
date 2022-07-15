@@ -51,7 +51,7 @@ $("body").on("click", ".modal-popup-view", function () {
     var view_url = $(this).data("url");
     $.ajax({
         url: view_url,
-        type: "GET", // category.show
+        type: "GET", // brand.show
 
         success: function (data) {
             var view_html = "";
@@ -99,9 +99,11 @@ $("body").on("click", ".modal-delete-confirm", function () {
 // Show image 
 
 $('body').on('click', ".showImage",function(e) {
-    // console.log('done');
+    var show_url = $(this).data("url");
+    var id = $(this).data("id");
+
     $.ajax({
-        url : show_image,
+        url : show_url,
         type : 'GET',
         // dataType : 'json',
         success : function(data) {

@@ -29,6 +29,9 @@ Brand
                         <div class="col ">
                             {{ Form::text('name',Request::old('name'),array('id' => 'name','class'=>"form-control",'name'=>'name')) }}
                             <span class="text-danger name" style="display:none">{{ $errors->first('name') }}</span>
+                            @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -40,6 +43,9 @@ Brand
                             <div class="col ">
                                 {{ Form::select('category_id', $categories, isset($categoryIds) ? $categoryIds : null, array('id' => 'category_id','class'=>"form-control select2"))}}
                                 <span class="text-danger category_id" style="display:none">{{ $errors->first('category_id') }}</span>
+                                @if ($errors->has('category_id'))
+                                <span class="text-danger">{{ $errors->first('category_id') }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -51,20 +57,21 @@ Brand
                             <div class="col col-form-label text-md-middle">
                                 <label class="radio-inline col-md-6 ">
                                 @if(isset($brand))
-                                <input type="radio" name="status" class="form-check-input inable" value="inable"{{ ($brand->status=="inable")? "checked" : "" }}>{{'Inable'}}
+                                <input type="radio" name="status" class="form-check-input inable" value="inable"{{ ($brand->status=="inable")? "checked" : "" }}>{{'Enable'}}
                                 <!-- {{ Form::radio('type','user','', Request::old('type') ,array('id' => 'user','class'=>"form-check-input User",'name'=>'type')) }}{{'user'}} -->
-                                <label class="radio-inline">
+                                <label class="radio-inline col-md-6">
                                 <input type="radio" name="status" class="form-check-input disable" value="disable"{{ ($brand->status=="disable")? "checked" : "" }}>{{'Disable'}}
                                 <!-- {{ Form::radio('type','admin','', Request::old('type') ,array('id' => 'admin','class'=>"form-check-input Admin">'type')) }}{{'admin'}} -->
                                 @else
-                                <input type="radio" name="status" class="form-check-input inable" value="inable">{{'Inable'}}
-                                <!-- {{ Form::radio('type','user','', Request::old('type') ,array('id' => 'user','class'=>"form-check-input User",'name'=>'type')) }}{{'user'}} -->
-                                <label class="radio-inline">
+                                <input type="radio" name="status" class="form-check-input inable" value="inable">{{'Enable'}}
+                                <label class="radio-inline col-md-6">
                                 <input type="radio" name="status" class="form-check-input disable" value="disable">{{'Disable'}}
-                                <!-- {{ Form::radio('type','admin','', Request::old('type') ,array('id' => 'admin','class'=>"form-check-input Admin">'type')) }}{{'admin'}} -->
                                 @endif
 
                                 <span class="text-danger status" style="display:none">{{ $errors->first('status') }}</span>
+                                @if ($errors->has('status'))
+                                <span class="text-danger">{{ $errors->first('status') }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -78,6 +85,9 @@ Brand
                         <div class="col">
                             {{ Form::file('image[]',array('id' => 'image','class'=>"form-control",'name'=>'image[]','multiple'=>'true')) }}
                             <span class="text-danger image" style="display:none">{{ $errors->first('image') }}</span>
+                            @if ($errors->has('image'))
+                                <span class="text-danger">{{ $errors->first('image') }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>
