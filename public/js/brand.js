@@ -96,17 +96,18 @@ $("body").on("click", ".modal-delete-confirm", function () {
     });
 });
 
+// Show image 
 
-
-$('#showImage').on('click', ".showImage",function(e) {
+$('body').on('click', ".showImage",function(e) {
+    // console.log('done');
     $.ajax({
         url : show_image,
         type : 'GET',
-        dataType : 'json',
+        // dataType : 'json',
         success : function(data) {
             console.log(data);
-            $('#data-table thead').append("<tr><th>" + "Image Show" + "</th></tr>");
-            $('#data-table tbody').append("<tr><td>" + data + "</td></tr>");
+            $('#data-table thead tr').append("<th>" + "Image Show" + "</th>");
+            $('#data-table tbody tr').append("<td>" + data + "</td>");
         },
 
         error : function() {

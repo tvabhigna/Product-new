@@ -9,7 +9,7 @@ Brand
     <h3 class="card-header shadow text-muted text-center">Brands
         <a class="btn btn-sm btn-primary shadow" id="createNewCategory"href="{{ route('brands.create')}}" >Add brand</a>
         <!-- <a class="btn btn-sm btn-primary shadow" id="showImage"href="{{ route('brands.image')}}" >Show image</a> -->
-        <a class="btn btn-sm btn-primary shadow" id="showImage"href="javascript:;" >Show image</a>
+        <!-- <a class="btn btn-sm btn-primary shadow" id="showImage"href="javascript:;" >Show image</a> -->
 
     </h3>
     <div class="card-body shadow">
@@ -119,23 +119,23 @@ Brand
 
     });
 
-    $('#showImage').on('click', function(e) {
-    $.ajax({
-        url : show_image,
-        type : 'GET',
-        // dataType : 'json',
-        success : function(data) {
-            console.log(data);
-            $('#data-table thead tr').append("<th>" + "Image Show" + "</th>");
-            $('#data-table tbody').prepend("<td>" + data +"</td>");
-        },
+//     $('#showImage').on('click', function(e) {
+//     $.ajax({
+//         url : show_image,
+//         type : 'GET',
+//         // dataType : 'json',
+//         success : function(data) {
+//             console.log(data);
+//             $('#data-table thead tr').append("<th>" + "Image Show" + "</th>");
+//             $('#data-table tbody').prepend("<td>" + data +"</td>");
+//         },
 
-        error : function() {
+//         error : function() {
 
-            console.log('error');
-        }
-    });
-});
+//             console.log('error');
+//         }
+//     });
+// });
     var root_url_brand = "{{route('brands.data')}}";
     var store_brand = "{{route('brands.store')}}";
     var update_brand = "{{route('brands.update','')}}";
