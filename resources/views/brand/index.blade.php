@@ -22,7 +22,7 @@ Brand
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="tbody">
 
             </tbody>
         </table>

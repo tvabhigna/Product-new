@@ -87,7 +87,7 @@ $("body").on("click", ".modal-delete-confirm", function () {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
         url: id,
-        type: "DELETE", // category.destroy
+        type: "DELETE", // brands.destroy
         dataType: "json",
         success: function (result) {
             $("#modal_delete_warning").modal("hide");
@@ -96,24 +96,26 @@ $("body").on("click", ".modal-delete-confirm", function () {
     });
 });
 
-// Show image 
+// Show image   
 
 $('body').on('click', ".showImage",function(e) {
     var show_url = $(this).data("url");
     var id = $(this).data("id");
+    var listItem=this.parentNode;
+    var column=listItem.parentNode;
 
+    console.log(column);
     $.ajax({
         url : show_url,
         type : 'GET',
-        // dataType : 'json',
-        success : function(data) {
+        success : function(data){
             console.log(data);
-            $('#data-table thead tr').append("<th>" + "Image Show" + "</th>");
-            $('#data-table tbody tr').append("<td>" + data + "</td>");
+            $(column).append(("<th>" + "Image: " + "</th>")),
+            $(column).append("<td>" + data + "</td></tr>");
+            // $('#data-table tbody').append("<td>" + data + "</td></tr>");
         },
 
         error : function() {
-
             console.log('error');
         }
     });

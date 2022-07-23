@@ -81,14 +81,15 @@ class BrandController extends Controller
     {
        
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
-        // if($categories!='id'){
-        //     // dd('hie');
-        //     Session::flash('hello', 'you have to add category first.');
-        //     return view('category.index');
-        // }
-        // else{
+        
+        if(empty($category)){
+            dd('hie');
+            Session::flash('hello', 'you have to add category first.');
+            return view('category.index');
+        }
+        else{
         return view('brand.create_update',compact('categories'));
-    // }
+    }
     }
 
     /**
@@ -126,9 +127,9 @@ class BrandController extends Controller
     public function show(Brand $brand)
     {
         $data  = [
-            'id'                =>  $brand->id,
-            'name'              =>  $brand->name,
-            'status'            =>  $brand->status,
+            'id'        =>  $brand->id,
+            'name'      =>  $brand->name,
+            'status'    =>  $brand->status,
             ];
             return $data;
     }
