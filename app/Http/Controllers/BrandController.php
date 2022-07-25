@@ -81,15 +81,15 @@ class BrandController extends Controller
     {
        
         $categories = Category::all()->pluck('name', 'id')->prepend(trans('Select category'), '');
-        
-        if(empty($category)){
-            dd('hie');
-            Session::flash('hello', 'you have to add category first.');
+        $count = Category::count();
+        if($count < 1) {
+            //less than one raw
+            Session::flash('success', 'you have to add category first.');
             return view('category.index');
+        }else {
+            // dd("hie");
+            return view('brand.create_update',compact('categories'));
         }
-        else{
-        return view('brand.create_update',compact('categories'));
-    }
     }
 
     /**

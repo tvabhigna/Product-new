@@ -120,3 +120,53 @@ $('body').on('click', ".showImage",function(e) {
         }
     });
 });
+
+//   *  Insert category data
+
+$("body").on("click", "#createNewBrand", function (e) {
+    e.preventDefault;
+    
+//     var count = 0;
+//     var id = $(this).e;
+//     console.log(id);
+
+//     if(e==null){
+
+//     $("#categoryForm").attr("action", store_category);
+//     $("#categoryTitleID").html("Add Category");
+//     $("#submit").val("Add");
+//     $("#categoryFormMethod").val("post");
+//     $("#categoryModal").modal("show");
+//     $("#category_id").val("");
+//     $("#categoryForm").trigger("reset");
+// }
+// else{
+//     console.log("hi");
+// }
+var url = $(this).data("url");
+
+if(e==null){
+
+        $("#categoryForm").attr("action", store_category);
+        $("#categoryTitleID").html("Add Category");
+        $("#submit").val("Add");
+        $("#categoryFormMethod").val("post");
+        $("#categoryModal").modal("show");
+        $("#category_id").val("");
+        $("#categoryForm").trigger("reset");
+    }
+    else{
+        $.ajax({
+            url : url,
+            type : 'GET',
+            success : function(data){
+                console.log("success");
+                url;
+            },
+    
+            error : function() {
+                console.log('error');
+            }
+        });
+    }
+});

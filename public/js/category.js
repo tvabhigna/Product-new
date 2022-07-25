@@ -1,4 +1,4 @@
-//   *  Insert company data
+//   *  Insert category data
 
 $("body").on("click", "#createNewCategory", function (e) {
     e.preventDefault;

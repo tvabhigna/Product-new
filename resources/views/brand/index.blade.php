@@ -7,7 +7,8 @@ Brand
 <div class="card-body">
     <div class="card">
     <h3 class="card-header shadow text-muted text-center">Brands
-        <a class="btn btn-sm btn-primary shadow" id="createNewCategory"href="{{ route('brands.create')}}" >Add brand</a>
+        <a class="btn btn-sm btn-primary shadow" id="createNewBrand"href="{{route('brands.create')}}" data-url="{{route('brands.create')}}">Add brand</a>
+        <!-- <a href="javascript:;" data-url="' . url('categories/' . $data->id) . '" class="modal-popup-view btn btn-outline-primary ml-1 legitRipple shadow">Show</i></a> -->
 
     </h3>
     <div class="card-body shadow">
@@ -26,6 +27,8 @@ Brand
 
             </tbody>
         </table>
+        @include('category.modal')
+
     </div>
 </div>
 <!-- View Modal Brand-->
@@ -106,7 +109,9 @@ Brand
     var root_url_brand = "{{route('brands.data')}}";
     var store_brand = "{{route('brands.store')}}";
     var update_brand = "{{route('brands.update','')}}";
-    var show_image = "{{route('brands.image','')}}"
+    var show_image = "{{route('brands.image','')}}";
+    var store_category = "{{route('categories.store')}}";
+
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -116,6 +121,7 @@ Brand
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="/js/brand.js"></script>
+<script src="/js/category.js"></script>
 
 
 @endsection
