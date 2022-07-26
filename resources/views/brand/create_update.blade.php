@@ -83,7 +83,8 @@ Brand
                         <p>Old image</p> -->
                         <label class="col-form-label">Photo <span class="text-danger" id="imageError">*</span></label>
                         <div class="col">
-                            {{ Form::file('image[]',array('id' => 'image','class'=>"form-control",'name'=>'image[]','multiple'=>'true')) }}
+                        <div id="demo" class = "row"></div>
+                            <!-- {{ Form::file('image[]',array('id' => 'image','class'=>"form-control",'name'=>'image[]','multiple'=>'true')) }} -->
                             <span class="text-danger image" style="display:none">{{ $errors->first('image') }}</span>
                             @if ($errors->has('image'))
                                 <span class="text-danger">{{ $errors->first('image') }}</span>
@@ -94,5 +95,10 @@ Brand
             </div>
             {{ Form::submit('Submit',array('class'=>'btn btn-primary')) }}
             {!! Form::close() !!}
-</div>            
+</div> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="/js/spartan-multi-image-picker-min.js"></script>
+<script src="/js/spartan-multi-image-picker.js"></script>
+<script src="/js/imagePicker.js"></script>
+
 @endsection

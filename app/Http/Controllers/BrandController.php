@@ -165,7 +165,6 @@ class BrandController extends Controller
             $fileModal->brand_id = $brand->id;
             $fileModal->save();
         }}
-            
             Session::flash('success', 'Brand has been updated!');
             return redirect(route('brands.index'));
             } else {

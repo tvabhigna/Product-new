@@ -3,7 +3,12 @@
 Brand
 @endsection
 @section('content')
-
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-block">
+	<button type="button" class="close" data-dismiss="alert">×</button>	
+        <strong>{{ $message }}</strong>
+</div>
+@endif
 <div class="card-body">
     <div class="card">
     <h3 class="card-header shadow text-muted text-center">Brands
@@ -122,6 +127,7 @@ Brand
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="/js/brand.js"></script>
 <script src="/js/category.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 
 @endsection
